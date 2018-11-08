@@ -1,25 +1,9 @@
----
-title: "test"
-author: Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157), Boya Guo (bg2604)
-date: "November 8, 2018"
-output: github_document
----
+test
+================
+Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095), Ditian Li (dl3157), Boya Guo (bg2604)
+November 8, 2018
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-library(tidyverse)
-library(haven)
-library(rlist)
-library(naniar)
-library(rvest)
-library(httr)
-
-
-```
-
-```{r}
-
+``` r
 read_xpt_final = function(x) {
     
     read_xpt(x) %>% 
@@ -98,12 +82,9 @@ nhanse = merge(demo, merge(mcq, whq)) %>%
                                  age_heaviest = c(77777, 99999)))
   
 #replace_with_na_all(condition = ~.x == 9999)
-
-
 ```
 
-```{r}
-
+``` r
 nhanse %>% 
   filter(cancer_code1 == 14 | cancer_code2 == 14) %>% 
   mutate(race = as.factor(race)) %>%
@@ -111,19 +92,26 @@ nhanse %>%
   count() %>% 
   ggplot(aes(x = race, y = n)) +
     geom_point()
+```
 
+![](test_files/figure-markdown_github/unnamed-chunk-2-1.png)
+
+``` r
 nhanse %>% 
   filter(cancer_code1 == 14 | cancer_code2 == 14) %>% 
   ggplot(aes(x = age)) +
     geom_histogram()
+```
 
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](test_files/figure-markdown_github/unnamed-chunk-2-2.png)
+
+``` r
 nhanse %>% 
   filter(cancer_code1 == 14 | cancer_code2 == 14) %>% 
   ggplot(aes(x = year, y = age)) +
     geom_boxplot()
-
-
-
 ```
 
-
+![](test_files/figure-markdown_github/unnamed-chunk-2-3.png)
