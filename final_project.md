@@ -54,6 +54,6 @@ We plan to meet on a weekly basis to discuss the project progress, and will foll
 
 ### References
 
-1.  Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." Advances in Nutrition 6.6 (2015): 803-819. <https://academic.oup.com/advances/article/6/6/803/4555151>
-2.  Chlebowski, Rowan T., et al. "Ethnicity and breast cancer: factors influencing differences in incidence and outcome." Journal of the National Cancer Institute 97.6 (2005): 439-448. <https://academic.oup.com/jnci/article/97/6/439/2544155>
-3.  Picon‐Ruiz, Manuel, et al. "Obesity and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention." CA: a cancer journal for clinicians 67.5 (2017): 378-397. <https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405>
+1.  Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* <https://academic.oup.com/advances/article/6/6/803/4555151>
+2.  Chlebowski, Rowan T., et al. "Ethnicity and breast cancer: factors influencing differences in incidence and outcome." *Journal of the National Cancer Institute 97.6 (2005): 439-448.* <https://academic.oup.com/jnci/article/97/6/439/2544155>
+3.  Picon‐Ruiz, Manuel, et al. "Obesity and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention." *CA: a cancer journal for clinicians 67.5 (2017): 378-397.* <https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405>
