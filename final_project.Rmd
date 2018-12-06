@@ -184,10 +184,10 @@ design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~
 
 ```
 Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. 
+
+
 ### Exploratory analysis: 
 Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted a Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead. 
-
-## Discussion and Implication: 
 
 ```{r test_logistic, warning = FALSE}
 
@@ -255,12 +255,10 @@ svyboxplot(age_breast_cancer ~ year, design, xlab = "Interview Year", ylab = "Ag
 * The boxplot "Distribution of Age at Breast Cancer Across Racial Groups" showed that Asian and 'Other' race group have relatively earlier breast cancer onset, while White and Mexican American have a later breast cancer onset.
 * The boxplot "Distribution of Age at Breast Cancer Across Three Interviews" indicated that the age of women getting breast cancer are similar in three interview period.
 
-## Discussion
-* Since we are using NHANES data, which is normally analyzed using SAS, we encountered a  lot of difficulties applying the survey design.
+## Discussion 
+* Since we are using NHANES data, which is normally analyzed using SAS, we encountered some difficulties while applying the survey design function.
 * Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, the definitions and question regarding some variables were not as clear or as what we expected. 
-* We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot". 
-* In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.
-* Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.
+* We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot". In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.
 
 ## References
 1. Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* https://academic.oup.com/advances/article/6/6/803/4555151
