@@ -183,6 +183,12 @@ levels(test_df$smoke_100)
 
 ```{r test_logistic}
 
+model1 = svyglm(breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", design = design)
+broom::tidy(model1)
+summary(model1)
+broom::glance(model1)
+AIC(model1)
+
 
 
 model1 = glm(formula = breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", data = test_df)
@@ -190,13 +196,6 @@ broom::tidy(model1)
 
 
 
-
-
-model2 = svyglm(breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", design = design)
-broom::tidy(model2)
-summary(model2)
-broom::glance(model2)
-AIC(model2)
 
 ```
 
