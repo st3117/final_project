@@ -9,23 +9,29 @@ Breast cancer is the most commonly diagnosed cancer among American women. It is 
 
 ### Related work
 
+Instruction from CDC website indicates being overweight or obese as a risk factor that could be changed, which is the main effect of our study. We also find potential factors if alcohol and forms of hormone replacement therapy (those that include both estrogen and progesterone) from the website. Also, previous study suggests household income and age at first live birth as 2 important predictors for breast cancer.
+
 ### Initial Questions:
 
-Are there Disparities in obesity and risk of breast cancer across racial/ethnic groups in the United States, when controlling for age?
+Does racial/ethnic disparity present in the association of obesity and risk of breast cancer in the United States, when we controlling for age?
 
 ### Data
 
 **Source** We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. <https://wwwn.cdc.gov/nchs/nhanes/Default.aspx>
 
-**Scraping Method**
+**Scraping Method and Cleaning** We cleaned our data from NHANES website from year 2011-2016, first we imported several questionnaire data and created data combination function. Then we chose and clean variables from each dataset, replaced the missing value,don't know,refused answers and selected the interest predictors and exposures.
 
-**Cleaning**
+### Weighting in NHANES Dataset
 
-### Intended final products
+Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the multistage complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis.
 
-We plan to present our project using the format of website and narrated screencast. In addition, we will create graphs, charts and/or Infographic and post them on our website.
+Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions, Alcohol, Smoking History, and Income data files).
 
-### Planned analyses / visualizations / coding challenges
+Since Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ \*WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data.
+
+### Exploratory Analysis
+
+To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we tidied our data and constructed the appropriate weight.
 
 -   Planned analyses
     -   Analyze the age onset of breast cancer across the total population, and the distribution of obesity incidences across racial/ethnic groups
@@ -34,25 +40,11 @@ We plan to present our project using the format of website and narrated screenca
     -   Boxplot of breast cancer incidences across racial/ethnic groups
     -   Histogram of breast cancer incidences in each age groups
     -   Scatter plot of breast cancer incidences in each racial/ethnic group across 6 years
--   Coding challenges
-    -   In order to calculate the most accurate measure, we should use weighted analyses for complex survey design such as NHANES datasets. We expect there will be coding challenges regarding how to perform weighted analyses.
-    -   Perform logistic regression
-
-### Planned timeline
-
-We plan to meet on a weekly basis to discuss the project progress, and will follow the timeline below:
-
-| Date               | Description                    | Deliverable                                                                  |
-|:-------------------|:-------------------------------|:-----------------------------------------------------------------------------|
-| November 12-16     | Project review meeting         | In person meeting                                                            |
-| 18-Nov             | Analysis/method meeting        | Discuss any analysis, method coding and each person's responsibility         |
-| 1-Dec              | Report meeting                 | Discuss and revise the final report together                                 |
-| 2-Dec              | Webpage and screencast meeting | Design website and record the explanatory video                              |
-| December 6 by 4:00 | Report                         | Written report giving detailed project description as a GitHub repo          |
-| December 6 by 4:00 | Webpage and screencast         | Webpage overview of project, with short explanatory video (published online) |
+-   Perform logistic regression
 
 ### References
 
 1.  Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* <https://academic.oup.com/advances/article/6/6/803/4555151>
 2.  Chlebowski, Rowan T., et al. "Ethnicity and breast cancer: factors influencing differences in incidence and outcome." *Journal of the National Cancer Institute 97.6 (2005): 439-448.* <https://academic.oup.com/jnci/article/97/6/439/2544155>
 3.  Picon‐Ruiz, Manuel, et al. "Obesity and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention." *CA: a cancer journal for clinicians 67.5 (2017): 378-397.* <https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405>
+4.  Module 3: Weighting. National Center for Health Statistics. Centers for Disease Control and Prevention. Retrieved from <https://wwwn.cdc.gov/nchs/nhanes/tutorials/Module3.aspx>
