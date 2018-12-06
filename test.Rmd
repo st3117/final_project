@@ -66,7 +66,8 @@ demo =
          psu = SDMVPSU, weight = WTINT2YR, name) %>% 
   mutate(year = ifelse(str_detect(name, "_G") == TRUE, "2011-2012", 
                        ifelse(str_detect(name, "_H") == TRUE, "2013-2014", "2015-2016")),
-         year = fct_relevel(year)) %>% 
+         year = fct_relevel(year),
+         weight = 1/3 * weight) %>% 
   select(id, year, gender:weight)
 
 #gender = fct_relevel(gender),
@@ -157,6 +158,12 @@ test_df =
   filter(gender == 2) %>% 
   select(id, year, age, race, breast_cancer, overweight, smoke_100, strata, psu, weight)
 
+test_df = 
+  test_df %>% 
+  mutate()
+
+save(file = "D:\Study\Data Science\Final Project\final_project\data\")
+
 test_df %>% filter(breast_cancer == 1) %>% View()
 levels(test_df$smoke_100)
 ```
@@ -170,7 +177,7 @@ broom::tidy(model1)
 
 skimr::skim(test_df)
 
-des = svydesign(ids = ~0, strata = ~strata, data = test_df, weights = ~weight)
+des = svydesign(id = ~psu, strata = ~strata, data = test_df, weights = ~weight, nest = TRUE)
 
 model2 = svyglm(breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", design = des)
 broom::tidy(model2)
