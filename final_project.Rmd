@@ -1,5 +1,5 @@
 ---
-title: "Disparities in Obesity and Risk of Breast Cancer across Racial/Ethnic Groups in the United States, Using NHANES 2011-16 Datasets"
+title: "The Association of Smoking and the Risk of Developing Breast Cancer in the United States, Using NHANES 2011-16 Datasets"
 author: Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157),  Boya Guo (bg2604)
 date: "December 6, 2018"
 output: github_document
@@ -20,38 +20,36 @@ knitr::opts_chunk$set(
 theme_set(theme_bw())
 ```
 
-###Motivation 
+###Motivation and Related Works
 
-Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime.  An inverse association between obesity and breast cancer has been reported by many studies. Previous studies have also found the age-adjusted ethnic difference in breast cancer incidence rates. Despite this disparity, the influence of obesity as a breast cancer risk factor on differences in incidence associated with ethnicity/race has received limited attention. The objective of this project is to investigate whether the impact of obesity on breast cancer varies across racial/ethnic groups from 2011 to 2016 in the United States. 
+Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime. An inverse association between smoking and breast cancer survival rate has been reported by many studies. A history of cigarette smoking can significantly increase the risk of breast cancer. However, there is a limited number of prior literatures investigate the association of smoking and breast cancer at a population level using national survey data. To address this knowledge gap, we conduct this secondary data analysis study on the National Health and Nutrition Examination Survey (NHANES) from year 2011 to 2016 to see if there is a trend of smoking and breast cancer risk across years in the United States. 
 
-###Related work
-
-Instruction from CDC website indicates smoking status as a risk factor that could be changed, which is the main effect of our study. We also find whether the subject is overweight, alcohol consumption as potential factors of from the website.
-Also, previous studies suggest household income and age at first live birth as 2 important predictors for breast cancer. Age and race are the two variables we need to adjust for in our models.
+The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates such as race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed. 
 
 ###Initial Questions:
-
-Does racial/ethnic disparity present in the association of obesity and risk of breast cancer in the United States, when we controlling for age?
+Does the risk of breast cancer increases with heavy smoking in the United States, when we controlling for other covariates?
 
 ###Data
 
 **Source**
-We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
+We used the Demographics and Questionnaire data files from the NHANES 2011-2016 datasets (https://wwwn.cdc.gov/nchs/nhanes/Default.aspx). NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. 
 
 **Scraping Method and Cleaning**
-We cleaned our data from NHANES website from year 2011-2016, first we imported several questionnaire data and created data combination function. Then we chose and clean variables from each dataset, replaced the missing value,don't know,refused answers and selected the interest predictors and exposures.
+
+
+To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777)  “don't know” (9, 99, 999, 9999) responses as missing value. 
 
 ### Weighting in NHANES Dataset
-Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the multistage complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
+Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
 
-Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions, Alcohol, Smoking History, and Income data files). 
+Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions data files). 
 
-Since Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. 
+Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. 
 
+### Exploratory analysis: 
+Visualizations, summaries, and exploratory statistical analyses. Justify the steps you took, and show any major changes to your ideas.
 
-### Exploratory Analysis 
-
-To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we tidied our data and constructed the appropriate weight. 
+### Discussion and Implication: 
 
 * Planned analyses
     + Analyze the age onset of breast cancer across the total population, and the distribution of obesity incidences across racial/ethnic groups
@@ -60,7 +58,7 @@ To investigate the association between obesity and risk of breast cancer across 
     + Boxplot of breast cancer incidences across racial/ethnic groups
     + Histogram of breast cancer incidences in each age groups
     + Scatter plot of breast cancer incidences in each racial/ethnic group across 6 years
-+ Perform logistic regression
+    + Perform logistic regression
 
 
 ### References
@@ -68,3 +66,4 @@ To investigate the association between obesity and risk of breast cancer across 
 2. Chlebowski, Rowan T., et al. "Ethnicity and breast cancer: factors influencing differences in incidence and outcome." *Journal of the National Cancer Institute 97.6 (2005): 439-448.* https://academic.oup.com/jnci/article/97/6/439/2544155
 3. Picon‐Ruiz, Manuel, et al. "Obesity and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention." *CA: a cancer journal for clinicians 67.5 (2017): 378-397.* https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405
 4. Module 3: Weighting. National Center for Health Statistics. Centers for Disease Control and Prevention. Retrieved from https://wwwn.cdc.gov/nchs/nhanes/tutorials/Module3.aspx
+5. Kispert, S., & McHowat, J. (2017). Recent insights into cigarette smoking as a lifestyle risk factor for breast cancer. Breast Cancer: Targets and Therapy, 9, 127.
