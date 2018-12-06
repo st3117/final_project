@@ -1,5 +1,5 @@
 ---
-title: "Disparities in obesity and risk of breast cancer across racial/ethnic groups in the United States, using NHANES 2011-16 datasets"
+title: "Disparities in Obesity and Risk of Breast Cancer across Racial/Ethnic Groups in the United States, Using NHANES 2011-16 Datasets"
 author: Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157),  Boya Guo (bg2604)
 date: "December 6, 2018"
 output: github_document
@@ -24,10 +24,29 @@ theme_set(theme_bw())
 
 Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime.  An inverse association between obesity and breast cancer has been reported by many studies. Previous studies have also found the age-adjusted ethnic difference in breast cancer incidence rates. Despite this disparity, the influence of obesity as a breast cancer risk factor on differences in incidence associated with ethnicity/race has received limited attention. The objective of this project is to investigate whether the impact of obesity on breast cancer varies across racial/ethnic groups from 2011 to 2016 in the United States. 
 
-###Study Aims
+###Related work
+
+
+###Initial Questions:
+
+Are there Disparities in obesity and risk of breast cancer across racial/ethnic groups in the United States, when controlling for age?
+
+###Data
+
+**Source**
+We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
+
+**Scraping Method**
+
+
+
+
+
+
 
 * Establish a model representing the relationship between breast cancer and interested predictors race, age, weight, overweight.
-** 
+** Visualization 
+
 
 
 ### Intended final products
