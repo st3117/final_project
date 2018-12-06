@@ -9,7 +9,7 @@ Breast cancer is the most commonly diagnosed cancer among American women. It is 
 
 ### Related work
 
-Instruction from CDC website indicates being overweight or obese as a risk factor that could be changed, which is the main effect of our study. We also find potential factors if alcohol and forms of hormone replacement therapy (those that include both estrogen and progesterone) from the website. Also, previous study suggests household income and age at first live birth as 2 important predictors for breast cancer.
+Instruction from CDC website indicates smoking status as a risk factor that could be changed, which is the main effect of our study. We also find whether the subject is overweight, alcohol consumption as potential factors of from the website. Also, previous studies suggest household income and age at first live birth as 2 important predictors for breast cancer. Age and race are the two variables we need to adjust for in our models.
 
 ### Initial Questions:
 
