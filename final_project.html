@@ -4,354 +4,159 @@
 
 <head>
 
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-
-<meta name="author" content="Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095), Ditian Li (dl3157), Boya Guo (bg2604)" />
-
-
-<title>The Association of Smoking and the Risk of Developing Breast Cancer in the United States, Using NHANES 2011-16 Datasets</title>
-
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
-
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
-
-
-
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
+<link href="data:text/css;charset=utf-8,%0A%40font%2Dface%20%7B%0Afont%2Dfamily%3A%20octicons%2Dlink%3B%0Asrc%3A%20url%28data%3Afont%2Fwoff%3Bcharset%3Dutf%2D8%3Bbase64%2Cd09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM%2B8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB%2FaFGpk3jaTY6xa8JAGMW%2FO62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v%2Bk%2F0an2i%2BitHDw3v2%2B9%2BDBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3%2FI7AtxEJLtzzuZfI%2BVVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy%2FLt7Kc%2B0vWY%2FgAgIIEqAN9we0pwKXreiMasxvabDQMM4riO%2BqxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw%2Bymhce7vwM9jSqO8JyVd5RH9gyTt2%2BJ%2FyUmYlIR0s04n6%2B7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv%2FocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi%2BW2%2BMjCzMIDApSwvXzC97Z4Ig8N%2FBxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh%2F8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT%2BAEjAwuDFpBmA9KMDEwMCh9i%2Fv8H8sH0%2F4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9%2FlqYwOGZxeUelN2U2R6%2BcArgtCJpauW7UQBqnFkUsjAY%2FkOU1cP%2BDAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl%2BvvmM%2FbyA48e6tWrKArm4ZJlCbdsrxksL1AwWn%2FyBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO%2F%2FsdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd%2F89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF%2B9JOS0nbaaYDCQfwCJ7Au3AHj%2BLO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm%2BEBXuAbHmIMSRMs%2B4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL%2BhD7C1xoaHeLJSEao0FEW14ckxC%2BTU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13%2F%2Blm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl%2B9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O%2FAdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB%2F%2F%2FAA8AAQAAAAAAAAAAAAAAAAABAAAAAA%3D%3D%29%20format%28%27woff%27%29%3B%0A%7D%0Abody%20%7B%0A%2Dwebkit%2Dtext%2Dsize%2Dadjust%3A%20100%25%3B%0Atext%2Dsize%2Dadjust%3A%20100%25%3B%0Acolor%3A%20%23333%3B%0Afont%2Dfamily%3A%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20%22Segoe%20UI%22%2C%20Arial%2C%20freesans%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0Afont%2Dsize%3A%2016px%3B%0Aline%2Dheight%3A%201%2E6%3B%0Aword%2Dwrap%3A%20break%2Dword%3B%0A%7D%0Aa%20%7B%0Abackground%2Dcolor%3A%20transparent%3B%0A%7D%0Aa%3Aactive%2C%0Aa%3Ahover%20%7B%0Aoutline%3A%200%3B%0A%7D%0Astrong%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%202em%3B%0Amargin%3A%200%2E67em%200%3B%0A%7D%0Aimg%20%7B%0Aborder%3A%200%3B%0A%7D%0Ahr%20%7B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Aheight%3A%200%3B%0A%7D%0Apre%20%7B%0Aoverflow%3A%20auto%3B%0A%7D%0Acode%2C%0Akbd%2C%0Apre%20%7B%0Afont%2Dfamily%3A%20monospace%2C%20monospace%3B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ainput%20%7B%0Acolor%3A%20inherit%3B%0Afont%3A%20inherit%3B%0Amargin%3A%200%3B%0A%7D%0Ahtml%20input%5Bdisabled%5D%20%7B%0Acursor%3A%20default%3B%0A%7D%0Ainput%20%7B%0Aline%2Dheight%3A%20normal%3B%0A%7D%0Ainput%5Btype%3D%22checkbox%22%5D%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0Apadding%3A%200%3B%0A%7D%0Atable%20%7B%0Aborder%2Dcollapse%3A%20collapse%3B%0Aborder%2Dspacing%3A%200%3B%0A%7D%0Atd%2C%0Ath%20%7B%0Apadding%3A%200%3B%0A%7D%0A%2A%20%7B%0Abox%2Dsizing%3A%20border%2Dbox%3B%0A%7D%0Ainput%20%7B%0Afont%3A%2013px%20%2F%201%2E4%20Helvetica%2C%20arial%2C%20nimbussansl%2C%20liberationsans%2C%20freesans%2C%20clean%2C%20sans%2Dserif%2C%20%22Apple%20Color%20Emoji%22%2C%20%22Segoe%20UI%20Emoji%22%2C%20%22Segoe%20UI%20Symbol%22%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%234078c0%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%2C%0Aa%3Aactive%20%7B%0Atext%2Ddecoration%3A%20underline%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%200%3B%0Amargin%3A%2015px%200%3B%0Aoverflow%3A%20hidden%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23ddd%3B%0A%7D%0Ahr%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ahr%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%2015px%3B%0Amargin%2Dbottom%3A%2015px%3B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah1%20%7B%0Afont%2Dsize%3A%2030px%3B%0A%7D%0Ah2%20%7B%0Afont%2Dsize%3A%2021px%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%2016px%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%2014px%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%2011px%3B%0A%7D%0Ablockquote%20%7B%0Amargin%3A%200%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Aol%20ol%2C%0Aul%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Droman%3B%0A%7D%0Aul%20ul%20ol%2C%0Aul%20ol%20ol%2C%0Aol%20ul%20ol%2C%0Aol%20ol%20ol%20%7B%0Alist%2Dstyle%2Dtype%3A%20lower%2Dalpha%3B%0A%7D%0Add%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Afont%2Dsize%3A%2012px%3B%0A%7D%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0Afont%3A%2012px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0A%7D%0A%2Eselect%3A%3A%2Dms%2Dexpand%20%7B%0Aopacity%3A%200%3B%0A%7D%0A%2Eocticon%20%7B%0Afont%3A%20normal%20normal%20normal%2016px%2F1%20octicons%2Dlink%3B%0Adisplay%3A%20inline%2Dblock%3B%0Atext%2Ddecoration%3A%20none%3B%0Atext%2Drendering%3A%20auto%3B%0A%2Dwebkit%2Dfont%2Dsmoothing%3A%20antialiased%3B%0A%2Dmoz%2Dosx%2Dfont%2Dsmoothing%3A%20grayscale%3B%0A%2Dwebkit%2Duser%2Dselect%3A%20none%3B%0A%2Dmoz%2Duser%2Dselect%3A%20none%3B%0A%2Dms%2Duser%2Dselect%3A%20none%3B%0Auser%2Dselect%3A%20none%3B%0A%7D%0A%2Eocticon%2Dlink%3Abefore%20%7B%0Acontent%3A%20%27%5Cf05c%27%3B%0A%7D%0A%2Emarkdown%2Dbody%3Abefore%20%7B%0Adisplay%3A%20table%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3Aafter%20%7B%0Adisplay%3A%20table%3B%0Aclear%3A%20both%3B%0Acontent%3A%20%22%22%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%20%21important%3B%0A%7D%0A%2Emarkdown%2Dbody%3E%2A%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%20%21important%3B%0A%7D%0Aa%3Anot%28%5Bhref%5D%29%20%7B%0Acolor%3A%20inherit%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0A%2Eanchor%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%2Dright%3A%202px%3B%0Amargin%2Dleft%3A%20%2D18px%3B%0A%7D%0A%2Eanchor%3Afocus%20%7B%0Aoutline%3A%20none%3B%0A%7D%0Ah1%2C%0Ah2%2C%0Ah3%2C%0Ah4%2C%0Ah5%2C%0Ah6%20%7B%0Amargin%2Dtop%3A%201em%3B%0Amargin%2Dbottom%3A%2016px%3B%0Afont%2Dweight%3A%20bold%3B%0Aline%2Dheight%3A%201%2E4%3B%0A%7D%0Ah1%20%2Eocticon%2Dlink%2C%0Ah2%20%2Eocticon%2Dlink%2C%0Ah3%20%2Eocticon%2Dlink%2C%0Ah4%20%2Eocticon%2Dlink%2C%0Ah5%20%2Eocticon%2Dlink%2C%0Ah6%20%2Eocticon%2Dlink%20%7B%0Acolor%3A%20%23000%3B%0Avertical%2Dalign%3A%20middle%3B%0Avisibility%3A%20hidden%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%2C%0Ah2%3Ahover%20%2Eanchor%2C%0Ah3%3Ahover%20%2Eanchor%2C%0Ah4%3Ahover%20%2Eanchor%2C%0Ah5%3Ahover%20%2Eanchor%2C%0Ah6%3Ahover%20%2Eanchor%20%7B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Ah1%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah2%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah3%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah4%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah5%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%2C%0Ah6%3Ahover%20%2Eanchor%20%2Eocticon%2Dlink%20%7B%0Avisibility%3A%20visible%3B%0A%7D%0Ah1%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%202%2E25em%3B%0Aline%2Dheight%3A%201%2E2%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah1%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah2%20%7B%0Apadding%2Dbottom%3A%200%2E3em%3B%0Afont%2Dsize%3A%201%2E75em%3B%0Aline%2Dheight%3A%201%2E225%3B%0Aborder%2Dbottom%3A%201px%20solid%20%23eee%3B%0A%7D%0Ah2%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%3B%0A%7D%0Ah3%20%7B%0Afont%2Dsize%3A%201%2E5em%3B%0Aline%2Dheight%3A%201%2E43%3B%0A%7D%0Ah3%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah4%20%7B%0Afont%2Dsize%3A%201%2E25em%3B%0A%7D%0Ah4%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E2%3B%0A%7D%0Ah5%20%7B%0Afont%2Dsize%3A%201em%3B%0A%7D%0Ah5%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ah6%20%7B%0Afont%2Dsize%3A%201em%3B%0Acolor%3A%20%23777%3B%0A%7D%0Ah6%20%2Eanchor%20%7B%0Aline%2Dheight%3A%201%2E1%3B%0A%7D%0Ap%2C%0Ablockquote%2C%0Aul%2C%0Aol%2C%0Adl%2C%0Atable%2C%0Apre%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ahr%20%7B%0Aheight%3A%204px%3B%0Apadding%3A%200%3B%0Amargin%3A%2016px%200%3B%0Abackground%2Dcolor%3A%20%23e7e7e7%3B%0Aborder%3A%200%20none%3B%0A%7D%0Aul%2C%0Aol%20%7B%0Apadding%2Dleft%3A%202em%3B%0A%7D%0Aul%20ul%2C%0Aul%20ol%2C%0Aol%20ol%2C%0Aol%20ul%20%7B%0Amargin%2Dtop%3A%200%3B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Ali%3Ep%20%7B%0Amargin%2Dtop%3A%2016px%3B%0A%7D%0Adl%20%7B%0Apadding%3A%200%3B%0A%7D%0Adl%20dt%20%7B%0Apadding%3A%200%3B%0Amargin%2Dtop%3A%2016px%3B%0Afont%2Dsize%3A%201em%3B%0Afont%2Dstyle%3A%20italic%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Adl%20dd%20%7B%0Apadding%3A%200%2016px%3B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0Ablockquote%20%7B%0Apadding%3A%200%2015px%3B%0Acolor%3A%20%23777%3B%0Aborder%2Dleft%3A%204px%20solid%20%23ddd%3B%0A%7D%0Ablockquote%3E%3Afirst%2Dchild%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Ablockquote%3E%3Alast%2Dchild%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Atable%20%7B%0Adisplay%3A%20block%3B%0Awidth%3A%20100%25%3B%0Aoverflow%3A%20auto%3B%0Aword%2Dbreak%3A%20normal%3B%0Aword%2Dbreak%3A%20keep%2Dall%3B%0A%7D%0Atable%20th%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Atable%20th%2C%0Atable%20td%20%7B%0Apadding%3A%206px%2013px%3B%0Aborder%3A%201px%20solid%20%23ddd%3B%0A%7D%0Atable%20tr%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Aborder%2Dtop%3A%201px%20solid%20%23ccc%3B%0A%7D%0Atable%20tr%3Anth%2Dchild%282n%29%20%7B%0Abackground%2Dcolor%3A%20%23f8f8f8%3B%0A%7D%0Aimg%20%7B%0Amax%2Dwidth%3A%20100%25%3B%0Abox%2Dsizing%3A%20content%2Dbox%3B%0Abackground%2Dcolor%3A%20%23fff%3B%0A%7D%0Acode%20%7B%0Apadding%3A%200%3B%0Apadding%2Dtop%3A%200%2E2em%3B%0Apadding%2Dbottom%3A%200%2E2em%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%2085%25%3B%0Abackground%2Dcolor%3A%20rgba%280%2C0%2C0%2C0%2E04%29%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0Acode%3Abefore%2C%0Acode%3Aafter%20%7B%0Aletter%2Dspacing%3A%20%2D0%2E2em%3B%0Acontent%3A%20%22%5C00a0%22%3B%0A%7D%0Apre%3Ecode%20%7B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Afont%2Dsize%3A%20100%25%3B%0Aword%2Dbreak%3A%20normal%3B%0Awhite%2Dspace%3A%20pre%3B%0Abackground%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0A%2Ehighlight%20%7B%0Amargin%2Dbottom%3A%2016px%3B%0A%7D%0A%2Ehighlight%20pre%2C%0Apre%20%7B%0Apadding%3A%2016px%3B%0Aoverflow%3A%20auto%3B%0Afont%2Dsize%3A%2085%25%3B%0Aline%2Dheight%3A%201%2E45%3B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0A%7D%0A%2Ehighlight%20pre%20%7B%0Amargin%2Dbottom%3A%200%3B%0Aword%2Dbreak%3A%20normal%3B%0A%7D%0Apre%20%7B%0Aword%2Dwrap%3A%20normal%3B%0A%7D%0Apre%20code%20%7B%0Adisplay%3A%20inline%3B%0Amax%2Dwidth%3A%20initial%3B%0Apadding%3A%200%3B%0Amargin%3A%200%3B%0Aoverflow%3A%20initial%3B%0Aline%2Dheight%3A%20inherit%3B%0Aword%2Dwrap%3A%20normal%3B%0Abackground%2Dcolor%3A%20transparent%3B%0Aborder%3A%200%3B%0A%7D%0Apre%20code%3Abefore%2C%0Apre%20code%3Aafter%20%7B%0Acontent%3A%20normal%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%2Dsize%3A%2011px%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Epl%2Dc%20%7B%0Acolor%3A%20%23969896%3B%0A%7D%0A%2Epl%2Dc1%2C%0A%2Epl%2Ds%20%2Epl%2Dv%20%7B%0Acolor%3A%20%230086b3%3B%0A%7D%0A%2Epl%2De%2C%0A%2Epl%2Den%20%7B%0Acolor%3A%20%23795da3%3B%0A%7D%0A%2Epl%2Ds%20%2Epl%2Ds1%2C%0A%2Epl%2Dsmi%20%7B%0Acolor%3A%20%23333%3B%0A%7D%0A%2Epl%2Dent%20%7B%0Acolor%3A%20%2363a35c%3B%0A%7D%0A%2Epl%2Dk%20%7B%0Acolor%3A%20%23a71d5d%3B%0A%7D%0A%2Epl%2Dpds%2C%0A%2Epl%2Ds%2C%0A%2Epl%2Ds%20%2Epl%2Dpse%20%2Epl%2Ds1%2C%0A%2Epl%2Dsr%2C%0A%2Epl%2Dsr%20%2Epl%2Dcce%2C%0A%2Epl%2Dsr%20%2Epl%2Dsra%2C%0A%2Epl%2Dsr%20%2Epl%2Dsre%20%7B%0Acolor%3A%20%23183691%3B%0A%7D%0A%2Epl%2Dv%20%7B%0Acolor%3A%20%23ed6a43%3B%0A%7D%0A%2Epl%2Did%20%7B%0Acolor%3A%20%23b52a1d%3B%0A%7D%0A%2Epl%2Dii%20%7B%0Abackground%2Dcolor%3A%20%23b52a1d%3B%0Acolor%3A%20%23f8f8f8%3B%0A%7D%0A%2Epl%2Dsr%20%2Epl%2Dcce%20%7B%0Acolor%3A%20%2363a35c%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dml%20%7B%0Acolor%3A%20%23693a17%3B%0A%7D%0A%2Epl%2Dmh%2C%0A%2Epl%2Dmh%20%2Epl%2Den%2C%0A%2Epl%2Dms%20%7B%0Acolor%3A%20%231d3e81%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmq%20%7B%0Acolor%3A%20%23008080%3B%0A%7D%0A%2Epl%2Dmi%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dstyle%3A%20italic%3B%0A%7D%0A%2Epl%2Dmb%20%7B%0Acolor%3A%20%23333%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmd%20%7B%0Abackground%2Dcolor%3A%20%23ffecec%3B%0Acolor%3A%20%23bd2c00%3B%0A%7D%0A%2Epl%2Dmi1%20%7B%0Abackground%2Dcolor%3A%20%23eaffea%3B%0Acolor%3A%20%2355a532%3B%0A%7D%0A%2Epl%2Dmdr%20%7B%0Acolor%3A%20%23795da3%3B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0A%2Epl%2Dmo%20%7B%0Acolor%3A%20%231d3e81%3B%0A%7D%0Akbd%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0Apadding%3A%203px%205px%3B%0Afont%3A%2011px%20Consolas%2C%20%22Liberation%20Mono%22%2C%20Menlo%2C%20Courier%2C%20monospace%3B%0Aline%2Dheight%3A%2010px%3B%0Acolor%3A%20%23555%3B%0Avertical%2Dalign%3A%20middle%3B%0Abackground%2Dcolor%3A%20%23fcfcfc%3B%0Aborder%3A%20solid%201px%20%23ccc%3B%0Aborder%2Dbottom%2Dcolor%3A%20%23bbb%3B%0Aborder%2Dradius%3A%203px%3B%0Abox%2Dshadow%3A%20inset%200%20%2D1px%200%20%23bbb%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20%7B%0Alist%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%2B%2Etask%2Dlist%2Ditem%20%7B%0Amargin%2Dtop%3A%203px%3B%0A%7D%0A%2Etask%2Dlist%2Ditem%20input%20%7B%0Amargin%3A%200%200%2E35em%200%2E25em%20%2D1%2E6em%3B%0Avertical%2Dalign%3A%20middle%3B%0A%7D%0A%3Achecked%2B%2Eradio%2Dlabel%20%7B%0Az%2Dindex%3A%201%3B%0Aposition%3A%20relative%3B%0Aborder%2Dcolor%3A%20%234078c0%3B%0A%7D%0A%2EsourceLine%20%7B%0Adisplay%3A%20inline%2Dblock%3B%0A%7D%0Acode%20%2Ekw%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Edt%20%7B%20color%3A%20%23ed6a43%3B%20%7D%0Acode%20%2Edv%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ebn%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Efl%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Ech%20%7B%20color%3A%20%23009999%3B%20%7D%0Acode%20%2Est%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eco%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Eot%20%7B%20color%3A%20%230086b3%3B%20%7D%0Acode%20%2Eal%20%7B%20color%3A%20%23a61717%3B%20%7D%0Acode%20%2Efu%20%7B%20color%3A%20%2363a35c%3B%20%7D%0Acode%20%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%0Acode%20%2Ewa%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ecn%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Esc%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Evs%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Ess%20%7B%20color%3A%20%23183691%3B%20%7D%0Acode%20%2Eim%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eva%20%7Bcolor%3A%20%23008080%3B%20%7D%0Acode%20%2Ecf%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eop%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Ebu%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Eex%20%7B%20color%3A%20%23000000%3B%20%7D%0Acode%20%2Epp%20%7B%20color%3A%20%23999999%3B%20%7D%0Acode%20%2Eat%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Edo%20%7B%20color%3A%20%23969896%3B%20%7D%0Acode%20%2Ean%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ecv%20%7B%20color%3A%20%23008080%3B%20%7D%0Acode%20%2Ein%20%7B%20color%3A%20%23008080%3B%20%7D%0A" rel="stylesheet">
+<style>
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+  padding-top: 0px;
 }
 </style>
-
 
 </head>
 
 <body>
 
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-<style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-</style>
-
-<script>
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark it active
-  menuAnchor.parent().addClass('active');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
-});
-</script>
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-
-
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">Home</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="about.html">Abstract</a>
-</li>
-<li>
-  <a href="Visualization.html">Visualization</a>
-</li>
-<li>
-  <a href="Introduction.html">Who are we</a>
-</li>
-<li>
-  <a href="https://github.com/st3117/final_project">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
-
-<div class="fluid-row" id="header">
-
-
-
-<h1 class="title toc-ignore">The Association of Smoking and the Risk of Developing Breast Cancer in the United States, Using NHANES 2011-16 Datasets</h1>
-<h4 class="author"><em>Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095), Ditian Li (dl3157), Boya Guo (bg2604)</em></h4>
-<h4 class="date"><em>December 6, 2018</em></h4>
-
-</div>
-
-
-<div id="motivation-and-related-works" class="section level3">
-<h3>Motivation and Related Works</h3>
+<h1 id="the-association-of-smoking-and-the-risk-of-developing-breast-cancer-in-the-united-states-using-nhanes-2011-16-datasets">The Association of Smoking and the Risk of Developing Breast Cancer in the United States, Using NHANES 2011-16 Datasets</h1>
+<p>Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095), Ditian Li (dl3157), Boya Guo (bg2604)<br />
+December 6, 2018</p>
+<h3 id="motivation-and-related-works">Motivation and Related Works</h3>
 <p>Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime. An inverse association between smoking and breast cancer survival rate has been reported by many studies. A history of cigarette smoking can significantly increase the risk of breast cancer. However, there is a limited number of prior literatures investigate the association of smoking and breast cancer at a population level using national survey data. To address this knowledge gap, we conduct this secondary data analysis study on the National Health and Nutrition Examination Survey (NHANES) from year 2011 to 2016 to see if there is a trend of smoking and breast cancer risk across years in the United States.</p>
 <p>The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates include race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed.</p>
-</div>
-<div id="initial-research-questions" class="section level3">
-<h3>Initial Research Questions:</h3>
+<h3 id="initial-research-questions">Initial Research Questions:</h3>
 <p>Does the risk of breast cancer increases with heavy smoking in the United States, when controlling for other covariates?</p>
-</div>
-<div id="data" class="section level3">
-<h3>Data</h3>
+<h3 id="data">Data</h3>
 <p><strong>Source</strong> We used the Demographics and Questionnaire data files from the NHANES 2011-2016 datasets (<a href="https://wwwn.cdc.gov/nchs/nhanes/Default.aspx" class="uri">https://wwwn.cdc.gov/nchs/nhanes/Default.aspx</a>). NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population.</p>
-<pre class="r"><code># readin csv file with url
-files = read_csv(&quot;./data/file_link.csv&quot;)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># readin csv file with url</span>
+files =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;./data/file_link.csv&quot;</span>)
 
-# demographics
-demo = 
-  files %&gt;%  
-  filter(str_detect(file_name, &quot;DEMO&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, gender = RIAGENDR, age = RIDAGEYR, race = RIDRETH3, edu = DMDEDUC3, 
-         six_month = RIDEXMON, birth_country = DMDBORN4, marital_status = DMDMARTL, 
-         pregancy_at_exam = RIDEXPRG, strata = SDMVSTRA, psu = SDMVPSU, weight = WTINT2YR) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;))),
-         weight = 1/3 * weight) %&gt;% 
-  select(id, year, gender:weight)
+<span class="co"># demographics</span>
+demo =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;DEMO&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">gender =</span> RIAGENDR, <span class="dt">age =</span> RIDAGEYR, <span class="dt">race =</span> RIDRETH3, <span class="dt">edu =</span> DMDEDUC3, 
+         <span class="dt">six_month =</span> RIDEXMON, <span class="dt">birth_country =</span> DMDBORN4, <span class="dt">marital_status =</span> DMDMARTL, 
+         <span class="dt">pregancy_at_exam =</span> RIDEXPRG, <span class="dt">strata =</span> SDMVSTRA, <span class="dt">psu =</span> SDMVPSU, <span class="dt">weight =</span> WTINT2YR) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>))),
+         <span class="dt">weight =</span> <span class="dv">1</span><span class="op">/</span><span class="dv">3</span> <span class="op">*</span><span class="st"> </span>weight) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, gender<span class="op">:</span>weight)
 
-# cancer history
-mcq = 
-  files %&gt;% 
-  filter(str_detect(file_name, &quot;MCQ&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, overweight = MCQ080, cancer_malignancy = MCQ220, cancer_code1 = MCQ230A, 
-         cancer_code2 = MCQ230B, age_breast_cancer = MCQ240E, told_lose_weight = MCQ365A, 
-         told_exercise = MCQ365B, told_reduce_fat = MCQ365D) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;)))) %&gt;% 
-  select(id, year, overweight:told_reduce_fat)
+<span class="co"># cancer history</span>
+mcq =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;MCQ&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">overweight =</span> MCQ080, <span class="dt">cancer_malignancy =</span> MCQ220, <span class="dt">cancer_code1 =</span> MCQ230A, 
+         <span class="dt">cancer_code2 =</span> MCQ230B, <span class="dt">age_breast_cancer =</span> MCQ240E, <span class="dt">told_lose_weight =</span> MCQ365A, 
+         <span class="dt">told_exercise =</span> MCQ365B, <span class="dt">told_reduce_fat =</span> MCQ365D) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>)))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, overweight<span class="op">:</span>told_reduce_fat)
 
-# smoking history
-smq = 
-  files %&gt;% 
-  filter(str_detect(file_name, &quot;SMQ&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, smoke_100 = SMQ020) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;)))) %&gt;% 
-  select(id, year, smoke_100)
+<span class="co"># smoking history</span>
+smq =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;SMQ&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">smoke_100 =</span> SMQ020) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>)))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, smoke_<span class="dv">100</span>)
 
-# hight / weight report
-whq = 
-  files %&gt;% 
-  filter(str_detect(file_name, &quot;WHQ&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, self_height = WHD010, self_weight = WHD020, times_lost_ten_lb = WHQ225, 
-         self_greaest_weight = WHD140, age_heaviest = WHQ150) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;)))) %&gt;% 
-  select(id, year, self_height:age_heaviest)
+<span class="co"># hight / weight report</span>
+whq =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;WHQ&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">self_height =</span> WHD010, <span class="dt">self_weight =</span> WHD020, <span class="dt">times_lost_ten_lb =</span> WHQ225, 
+         <span class="dt">self_greaest_weight =</span> WHD140, <span class="dt">age_heaviest =</span> WHQ150) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>)))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, self_height<span class="op">:</span>age_heaviest)
 
-# alcohol history
-alq = 
-  files %&gt;% 
-  filter(str_detect(file_name, &quot;ALQ&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, alcohol = ALQ130) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;)))) %&gt;% 
-  select(id, year, alcohol)
+<span class="co"># alcohol history</span>
+alq =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;ALQ&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">alcohol =</span> ALQ130) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>)))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, alcohol)
   
-# reproduction
-rhq = 
-  files %&gt;% 
-  filter(str_detect(file_name, &quot;RHQ&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, age_first_birth = RHD180) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;)))) %&gt;% 
-  select(id, year, age_first_birth)
+<span class="co"># reproduction</span>
+rhq =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;RHQ&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">age_first_birth =</span> RHD180) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>)))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, age_first_birth)
 
-# incomce information
-inq = 
-  files %&gt;% 
-  filter(str_detect(file_name, &quot;INQ&quot;)) %&gt;% 
-  mutate(map(.x = file_link, ~read_xpt(.x))) %&gt;% 
-  unnest %&gt;% 
-  select(file_name, id = SEQN, income = INDFMMPC) %&gt;% 
-  mutate(year = as.factor(ifelse(str_detect(file_name, &quot;_G&quot;) == TRUE, &quot;2011-2012&quot;, 
-                          ifelse(str_detect(file_name, &quot;_H&quot;) == TRUE, &quot;2013-2014&quot;, &quot;2015-2016&quot;)))) %&gt;% 
-  select(id, year, income)</code></pre>
+<span class="co"># incomce information</span>
+inq =<span class="st"> </span>
+<span class="st">  </span>files <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;INQ&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="kw">map</span>(<span class="dt">.x =</span> file_link, <span class="op">~</span><span class="kw">read_xpt</span>(.x))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>unnest <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(file_name, <span class="dt">id =</span> SEQN, <span class="dt">income =</span> INDFMMPC) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_G&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2011-2012&quot;</span>, 
+                          <span class="kw">ifelse</span>(<span class="kw">str_detect</span>(file_name, <span class="st">&quot;_H&quot;</span>) <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>, <span class="st">&quot;2013-2014&quot;</span>, <span class="st">&quot;2015-2016&quot;</span>)))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, income)</code></pre></div>
 <p><strong>Scraping Method and Cleaning</strong></p>
-<p>To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777) “don’t know” (9, 99, 999, 9999) responses as missing value. After we tidying our data, 8920 number of participants and 14 variables were included in the final dataset to analyze.</p>
-<pre class="r"><code># replace &quot;refused&quot;&quot; and &quot;don&#39;t know&quot; data as missing 
-nhanes = merge(demo, merge(alq, merge(inq, merge(mcq, merge(rhq, merge(smq, whq)))))) %&gt;% 
-  replace_with_na(replace = list(birth_country = c(77, 99), marital_status = c(77, 99), overweight = c(7, 9),
-                                 cancer_malignancy = c(7, 9), cancer_code1 = 99, age_breast_cancer = 99999,
-                                 told_lose_weight = c(7, 9), told_exercise = c(7, 9), told_reduce_fat = c(7, 9),
-                                 self_height = c(7777, 9999), self_weight = c(7777, 9999),
-                                 times_lost_ten_lb = c(7, 9), self_greaest_weight = c(7777, 9999),
-                                 age_heaviest = c(77777, 99999), smoke_100 = c(7, 9), alcohol = c(777, 999),
-                                 income = c(7, 9), age_first_birth = c(777, 999)))
-# tried replace_with_na_all() function but failed
+<p>To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777) “don't know” (9, 99, 999, 9999) responses as missing value. After we tidying our data, 8920 number of participants and 14 variables were included in the final dataset to analyze.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># replace &quot;refused&quot;&quot; and &quot;don't know&quot; data as missing </span>
+nhanes =<span class="st"> </span><span class="kw">merge</span>(demo, <span class="kw">merge</span>(alq, <span class="kw">merge</span>(inq, <span class="kw">merge</span>(mcq, <span class="kw">merge</span>(rhq, <span class="kw">merge</span>(smq, whq)))))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">replace_with_na</span>(<span class="dt">replace =</span> <span class="kw">list</span>(<span class="dt">birth_country =</span> <span class="kw">c</span>(<span class="dv">77</span>, <span class="dv">99</span>), <span class="dt">marital_status =</span> <span class="kw">c</span>(<span class="dv">77</span>, <span class="dv">99</span>), <span class="dt">overweight =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>),
+                                 <span class="dt">cancer_malignancy =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="dt">cancer_code1 =</span> <span class="dv">99</span>, <span class="dt">age_breast_cancer =</span> <span class="dv">99999</span>,
+                                 <span class="dt">told_lose_weight =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="dt">told_exercise =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="dt">told_reduce_fat =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>),
+                                 <span class="dt">self_height =</span> <span class="kw">c</span>(<span class="dv">7777</span>, <span class="dv">9999</span>), <span class="dt">self_weight =</span> <span class="kw">c</span>(<span class="dv">7777</span>, <span class="dv">9999</span>),
+                                 <span class="dt">times_lost_ten_lb =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="dt">self_greaest_weight =</span> <span class="kw">c</span>(<span class="dv">7777</span>, <span class="dv">9999</span>),
+                                 <span class="dt">age_heaviest =</span> <span class="kw">c</span>(<span class="dv">77777</span>, <span class="dv">99999</span>), <span class="dt">smoke_100 =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="dt">alcohol =</span> <span class="kw">c</span>(<span class="dv">777</span>, <span class="dv">999</span>),
+                                 <span class="dt">income =</span> <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">9</span>), <span class="dt">age_first_birth =</span> <span class="kw">c</span>(<span class="dv">777</span>, <span class="dv">999</span>)))
+<span class="co"># tried replace_with_na_all() function but failed</span>
 
-# clean and choose the predictors and exposures
-nhanes_model = 
-  nhanes %&gt;% 
-  mutate(breast_cancer = ifelse(cancer_code1 == 14 | cancer_code2 == 14, 1, 0),
-         breast_cancer = as.factor(ifelse(is.na(breast_cancer), 0, breast_cancer)),
-         race = ifelse(race == 1, &quot;Mexican&quot;,
-                       ifelse(race == 2, &quot;Hispanic&quot;,
-                              ifelse(race == 3, &quot;White&quot;,
-                                     ifelse(race == 4, &quot;Black&quot;,
-                                            ifelse(race == 6, &quot;Asian&quot;, &quot;Other&quot;))))),
-         race = fct_relevel(as.factor(race), &quot;White&quot;),
-         overweight = fct_relevel(as.factor(overweight), &#39;2&#39;),
-         smoke_100 = fct_relevel(as.factor(smoke_100), &#39;2&#39;),
-         income = fct_relevel(as.factor(income), &#39;2&#39;),
-         bmi = (self_weight*0.453592)/(self_height*0.0254)^2) %&gt;% 
-  filter(gender == 2) %&gt;% 
-  select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, alcohol, age_first_birth, 
-         income, bmi, strata, psu, weight)</code></pre>
-<pre class="r"><code>skimr::skim(nhanes_model)</code></pre>
+<span class="co"># clean and choose the predictors and exposures</span>
+nhanes_model =<span class="st"> </span>
+<span class="st">  </span>nhanes <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">breast_cancer =</span> <span class="kw">ifelse</span>(cancer_code1 <span class="op">==</span><span class="st"> </span><span class="dv">14</span> <span class="op">|</span><span class="st"> </span>cancer_code2 <span class="op">==</span><span class="st"> </span><span class="dv">14</span>, <span class="dv">1</span>, <span class="dv">0</span>),
+         <span class="dt">breast_cancer =</span> <span class="kw">as.factor</span>(<span class="kw">ifelse</span>(<span class="kw">is.na</span>(breast_cancer), <span class="dv">0</span>, breast_cancer)),
+         <span class="dt">race =</span> <span class="kw">ifelse</span>(race <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="st">&quot;Mexican&quot;</span>,
+                       <span class="kw">ifelse</span>(race <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="st">&quot;Hispanic&quot;</span>,
+                              <span class="kw">ifelse</span>(race <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="st">&quot;White&quot;</span>,
+                                     <span class="kw">ifelse</span>(race <span class="op">==</span><span class="st"> </span><span class="dv">4</span>, <span class="st">&quot;Black&quot;</span>,
+                                            <span class="kw">ifelse</span>(race <span class="op">==</span><span class="st"> </span><span class="dv">6</span>, <span class="st">&quot;Asian&quot;</span>, <span class="st">&quot;Other&quot;</span>))))),
+         <span class="dt">race =</span> <span class="kw">fct_relevel</span>(<span class="kw">as.factor</span>(race), <span class="st">&quot;White&quot;</span>),
+         <span class="dt">overweight =</span> <span class="kw">fct_relevel</span>(<span class="kw">as.factor</span>(overweight), <span class="st">'2'</span>),
+         <span class="dt">smoke_100 =</span> <span class="kw">fct_relevel</span>(<span class="kw">as.factor</span>(smoke_<span class="dv">100</span>), <span class="st">'2'</span>),
+         <span class="dt">income =</span> <span class="kw">fct_relevel</span>(<span class="kw">as.factor</span>(income), <span class="st">'2'</span>),
+         <span class="dt">bmi =</span> (self_weight<span class="op">*</span><span class="fl">0.453592</span>)<span class="op">/</span>(self_height<span class="op">*</span><span class="fl">0.0254</span>)<span class="op">^</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(id, year, age, race, breast_cancer, overweight, smoke_<span class="dv">100</span>, age_breast_cancer, alcohol, age_first_birth, 
+         income, bmi, strata, psu, weight)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">skimr<span class="op">::</span><span class="kw">skim</span>(nhanes_model)</code></pre></div>
 <pre><code>## Skim summary statistics
 ##  n obs: 8920 
 ##  n variables: 15 
 ## 
-## -- Variable type:factor ---------------------------------------------------------------------------------------------------
+## -- Variable type:factor --------------------------------------------------------------------------------
 ##       variable missing complete    n n_unique
 ##  breast_cancer       0     8920 8920        2
 ##         income     565     8355 8920        3
@@ -367,7 +172,7 @@ nhanes_model =
 ##                   2: 5919, 1: 2849, NA: 152   FALSE
 ##      201: 3101, 201: 2976, 201: 2843, NA: 0   FALSE
 ## 
-## -- Variable type:numeric --------------------------------------------------------------------------------------------------
+## -- Variable type:numeric -------------------------------------------------------------------------------
 ##           variable missing complete    n     mean       sd       p0
 ##                age       0     8920 8920    47.56    18.38    18   
 ##  age_breast_cancer    8676      244 8920    55.86    12.97    14   
@@ -389,32 +194,28 @@ nhanes_model =
 ##    100      111      123      133    &lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2586&gt;&lt;U+2586&gt;&lt;U+2586&gt;&lt;U+2586&gt;&lt;U+2586&gt;&lt;U+2587&gt;
 ##   5913.93  8639.98 15472.36 77918.61 &lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;</code></pre>
 <p>After we built the model, we found there are 565 missing responses in income, 152 missing in smoking, 3885 missing in age at first birth, 4118 missing in alcohol, which may lead to potential bias in model comparison and estimation.</p>
-</div>
-<div id="weighting-in-nhanes-dataset" class="section level3">
-<h3>Weighting in NHANES Dataset</h3>
+<h3 id="weighting-in-nhanes-dataset">Weighting in NHANES Dataset</h3>
 <p>Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis.</p>
 <p>Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions data files).</p>
-<pre class="r"><code># Make Survey Design
-design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~weight, nest = TRUE)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make Survey Design</span>
+design =<span class="st"> </span><span class="kw">svydesign</span>(<span class="dt">id =</span> <span class="op">~</span>psu, <span class="dt">strata =</span> <span class="op">~</span>strata, <span class="dt">data =</span> nhanes_model, <span class="dt">weights =</span> <span class="op">~</span>weight, <span class="dt">nest =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data.</p>
-</div>
-<div id="exploratory-analysis" class="section level3">
-<h3>Exploratory analysis:</h3>
+<h3 id="exploratory-analysis">Exploratory analysis:</h3>
 <p>Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted a Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead.</p>
-<pre class="r"><code># proposed model 1, smoking as main effect
-model1 = svyglm(breast_cancer ~ age + race + smoke_100, family = &quot;binomial&quot;, design = design)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># proposed model 1, smoking as main effect</span>
+model1 =<span class="st"> </span><span class="kw">svyglm</span>(breast_cancer <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke_<span class="dv">100</span>, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">design =</span> design)
 
-# null model 2, include only age and race 
-model2 = svyglm(breast_cancer ~ age + race, family = &quot;binomial&quot;, design = design)
+<span class="co"># null model 2, include only age and race </span>
+model2 =<span class="st"> </span><span class="kw">svyglm</span>(breast_cancer <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>race, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">design =</span> design)
 
-# full model 3, include all the variables mentioned in the reference
-model3 = svyglm(breast_cancer ~ age + race + smoke_100 + overweight + alcohol + age_first_birth + income, family = &quot;binomial&quot;, design = design)
+<span class="co"># full model 3, include all the variables mentioned in the reference</span>
+model3 =<span class="st"> </span><span class="kw">svyglm</span>(breast_cancer <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke_<span class="dv">100</span> <span class="op">+</span><span class="st"> </span>overweight <span class="op">+</span><span class="st"> </span>alcohol <span class="op">+</span><span class="st"> </span>age_first_birth <span class="op">+</span><span class="st"> </span>income, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">design =</span> design)
 
-# comparison of AIC between 3 models
-tibble(
-  model = c(&quot;model1&quot;, &quot;model2&quot;, &quot;model3&quot;),
-  AIC = c(summary(model1)$aic, summary(model2)$aic, summary(model3)$aic)) %&gt;% 
-  knitr::kable(digit = 3)</code></pre>
+<span class="co"># comparison of AIC between 3 models</span>
+<span class="kw">tibble</span>(
+  <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;model1&quot;</span>, <span class="st">&quot;model2&quot;</span>, <span class="st">&quot;model3&quot;</span>),
+  <span class="dt">AIC =</span> <span class="kw">c</span>(<span class="kw">summary</span>(model1)<span class="op">$</span>aic, <span class="kw">summary</span>(model2)<span class="op">$</span>aic, <span class="kw">summary</span>(model3)<span class="op">$</span>aic)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digit =</span> <span class="dv">3</span>)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -437,30 +238,38 @@ tibble(
 </tr>
 </tbody>
 </table>
-<pre class="r"><code># comparison between proposed model (model 1) and null model (model 2)
-anova(model1, model2, method = &quot;Wald&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># comparison between proposed model (model 1) and null model (model 2)</span>
+<span class="kw">anova</span>(model1, model2, <span class="dt">method =</span> <span class="st">&quot;Wald&quot;</span>)</code></pre></div>
 <pre><code>## Wald test for smoke_100
 ##  in svyglm(formula = breast_cancer ~ age + race + smoke_100, family = &quot;binomial&quot;, 
 ##     design = design)
 ## F =  3.201956  on  1  and  40  df: p= 0.081124</code></pre>
-<pre class="r"><code># p-value &lt; 0.1, we can conclude that proposed mode is significantly better than null model
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># p-value &lt; 0.1, we can conclude that proposed mode is significantly better than null model</span>
 
-# comparison between proposed model (model 1) and null model (model 3)
-anova(model1, model3, method = &quot;Wald&quot;)</code></pre>
+<span class="co"># comparison between proposed model (model 1) and null model (model 3)</span>
+<span class="kw">anova</span>(model1, model3, <span class="dt">method =</span> <span class="st">&quot;Wald&quot;</span>)</code></pre></div>
 <pre><code>## Wald test for overweight alcohol age_first_birth income
 ##  in svyglm(formula = breast_cancer ~ age + race + smoke_100 + overweight + 
 ##     alcohol + age_first_birth + income, family = &quot;binomial&quot;, 
 ##     design = design)
 ## F =  1.073669  on  5  and  35  df: p= 0.39167</code></pre>
-<pre class="r"><code># p-value &gt; 0.1, we can conclude that proposed mode is similar to the full model</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># p-value &gt; 0.1, we can conclude that proposed mode is similar to the full model</span></code></pre></div>
 <p>Again, the proposed model (model 1) with smoking as the main effect is significantly better than the null model at alpha = 0.1 level, while the proposed model is similar to the full model. Thus, it is reasonable to use the proposed model.</p>
-<pre class="r"><code>broom::tidy(model1) %&gt;% 
-  mutate(OR = exp(estimate),
-         conf.low = exp(estimate - 1.645 * std.error),
-         conf.high = exp(estimate + 1.645 * std.error)) %&gt;% 
-  select(term, beta = estimate, p.value, OR, conf.low, conf.high) %&gt;% 
-  knitr::kable(digit = 3)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">broom<span class="op">::</span><span class="kw">tidy</span>(model1) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">OR =</span> <span class="kw">exp</span>(estimate),
+         <span class="dt">conf.low =</span> <span class="kw">exp</span>(estimate <span class="op">-</span><span class="st"> </span><span class="fl">1.645</span> <span class="op">*</span><span class="st"> </span>std.error),
+         <span class="dt">conf.high =</span> <span class="kw">exp</span>(estimate <span class="op">+</span><span class="st"> </span><span class="fl">1.645</span> <span class="op">*</span><span class="st"> </span>std.error)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(term, <span class="dt">beta =</span> estimate, p.value, OR, conf.low, conf.high) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digit =</span> <span class="dv">3</span>)</code></pre></div>
 <table>
+<colgroup>
+<col width="6%"></col>
+<col width="4%"></col>
+<col width="4%"></col>
+<col width="3%"></col>
+<col width="4%"></col>
+<col width="76%"></col>
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">term</th>
@@ -554,73 +363,38 @@ anova(model1, model3, method = &quot;Wald&quot;)</code></pre>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="visualization" class="section level2">
-<h2>Visualization</h2>
-<p>Since we should consider the effect of weighting for NHANES data, strata and cluster data are not the same as the raw data. Therefore, we have to use the ‘svyplot’ function for visualization.</p>
-<pre class="r"><code># Distribution of Age at Breast Cancer
-svyhist(~nhanes_model$age_breast_cancer, breaks = c(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80), col = &quot;grey&quot;, design, main = &quot;Distribution of Age at Breast Cancer&quot;, xlab = &quot;Age at Breast Cancer&quot;)</code></pre>
-<p><img src="final_project_files/figure-html/plots-1.png" width="672" /></p>
-<pre class="r"><code># Distribution of Age at Breast Cancer Across Racial Groups
-svyboxplot(age_breast_cancer ~ race, design, xlab = &quot;Race&quot;, ylab = &quot;Age at Breast Cancer&quot;,
-           main = &quot;Distribution of Age at Breast Cancer Across Racial Groups&quot;)</code></pre>
-<p><img src="final_project_files/figure-html/plots-2.png" width="672" /></p>
-<pre class="r"><code># Distribution of Age at Breast Cancer Across Three Interviews
-svyboxplot(age_breast_cancer ~ year, design, xlab = &quot;Interview Year&quot;, ylab = &quot;Age at Breast Cancer&quot;, 
-           main = &quot;Distribution of Age at Breast Cancer Across Three Interviews&quot;)</code></pre>
-<p><img src="final_project_files/figure-html/plots-3.png" width="672" /></p>
+<h2 id="visualization">Visualization</h2>
+<p>Since we should consider the effect of weighting for NHANES data, strata and cluster data are not the same as the raw data. Therefore, we have to use the 'svyplot' function for visualization.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Distribution of Age at Breast Cancer</span>
+<span class="kw">svyhist</span>(<span class="op">~</span>nhanes_model<span class="op">$</span>age_breast_cancer, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">70</span>, <span class="dv">75</span>, <span class="dv">80</span>), <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>, design, <span class="dt">main =</span> <span class="st">&quot;Distribution of Age at Breast Cancer&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Age at Breast Cancer&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Distribution of Age at Breast Cancer Across Racial Groups</span>
+<span class="kw">svyboxplot</span>(age_breast_cancer <span class="op">~</span><span class="st"> </span>race, design, <span class="dt">xlab =</span> <span class="st">&quot;Race&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Age at Breast Cancer&quot;</span>,
+           <span class="dt">main =</span> <span class="st">&quot;Distribution of Age at Breast Cancer Across Racial Groups&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Distribution of Age at Breast Cancer Across Three Interviews</span>
+<span class="kw">svyboxplot</span>(age_breast_cancer <span class="op">~</span><span class="st"> </span>year, design, <span class="dt">xlab =</span> <span class="st">&quot;Interview Year&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Age at Breast Cancer&quot;</span>, 
+           <span class="dt">main =</span> <span class="st">&quot;Distribution of Age at Breast Cancer Across Three Interviews&quot;</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /></p>
 <ul>
-<li><p>The histogram plot “Distribution of Age at Breast Cancer”showed that women within 50 - 60 age group have the highest risk of getting breast cancer than the other age group.</p></li>
-<li>The boxplot “Distribution of Age at Breast Cancer Across Racial Groups” showed that Asian and ‘Other’ race group have relatively earlier breast cancer onset, while White and Mexican American have a later breast cancer onset.</li>
-<li><p>The boxplot “Distribution of Age at Breast Cancer Across Three Interviews” indicated that the age of women getting breast cancer are similar in three interview period.</p></li>
+<li><p>The histogram plot &quot;Distribution of Age at Breast Cancer&quot;showed that women within 50 - 60 age group have the highest risk of getting breast cancer than the other age group.</p></li>
+<li>The boxplot &quot;Distribution of Age at Breast Cancer Across Racial Groups&quot; showed that Asian and 'Other' race group have relatively earlier breast cancer onset, while White and Mexican American have a later breast cancer onset.</li>
+<li><p>The boxplot &quot;Distribution of Age at Breast Cancer Across Three Interviews&quot; indicated that the age of women getting breast cancer are similar in three interview period.</p></li>
 </ul>
-</div>
-<div id="discussion" class="section level2">
-<h2>Discussion</h2>
+<h2 id="discussion">Discussion</h2>
 <ul>
 <li>Since we are using NHANES data, which is normally analyzed using SAS, we encountered some difficulties while applying the survey design function.</li>
 <li>Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, the definitions and question regarding some variables were not as clear or as what we expected.</li>
-<li>We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on “svyplot”. In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.</li>
+<li>We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on &quot;svyplot&quot;. In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.</li>
 </ul>
-</div>
-<div id="references" class="section level2">
-<h2>References</h2>
-<ol style="list-style-type: decimal">
-<li>Bandera, Elisa V., et al. “Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–.” <em>Advances in Nutrition 6.6 (2015): 803-819.</em> <a href="https://academic.oup.com/advances/article/6/6/803/4555151" class="uri">https://academic.oup.com/advances/article/6/6/803/4555151</a></li>
-<li>Chlebowski, Rowan T., et al. “Ethnicity and breast cancer: factors influencing differences in incidence and outcome.” <em>Journal of the National Cancer Institute 97.6 (2005): 439-448.</em> <a href="https://academic.oup.com/jnci/article/97/6/439/2544155" class="uri">https://academic.oup.com/jnci/article/97/6/439/2544155</a></li>
-<li>Picon‐Ruiz, Manuel, et al. “smoking and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention.” <em>CA: a cancer journal for clinicians 67.5 (2017): 378-397.</em> <a href="https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405" class="uri">https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405</a></li>
+<h2 id="references">References</h2>
+<ol>
+<li>Bandera, Elisa V., et al. &quot;Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–.&quot; <em>Advances in Nutrition 6.6 (2015): 803-819.</em> <a href="https://academic.oup.com/advances/article/6/6/803/4555151" class="uri">https://academic.oup.com/advances/article/6/6/803/4555151</a></li>
+<li>Chlebowski, Rowan T., et al. &quot;Ethnicity and breast cancer: factors influencing differences in incidence and outcome.&quot; <em>Journal of the National Cancer Institute 97.6 (2005): 439-448.</em> <a href="https://academic.oup.com/jnci/article/97/6/439/2544155" class="uri">https://academic.oup.com/jnci/article/97/6/439/2544155</a></li>
+<li>Picon‐Ruiz, Manuel, et al. &quot;smoking and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention.&quot; <em>CA: a cancer journal for clinicians 67.5 (2017): 378-397.</em> <a href="https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405" class="uri">https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405</a></li>
 <li>Module 3: Weighting. National Center for Health Statistics. Centers for Disease Control and Prevention. Retrieved from <a href="https://wwwn.cdc.gov/nchs/nhanes/tutorials/Module3.aspx" class="uri">https://wwwn.cdc.gov/nchs/nhanes/tutorials/Module3.aspx</a></li>
 <li>Kispert, S., &amp; McHowat, J. (2017). Recent insights into cigarette smoking as a lifestyle risk factor for breast cancer. Breast Cancer: Targets and Therapy, 9, 127.</li>
 </ol>
-</div>
-
-
-
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
 </body>
 </html>

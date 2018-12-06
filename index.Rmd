@@ -7,8 +7,10 @@ output: html_document
 
 The video gives a brief introduction of our project. We will talk about why we focus on this topic, the statistic methods and some simple results of our analysis. If you are interested in our topic you can view our complete project on Github.
 
+[Ourvideo](https://www.youtube.com/watch?v=hAo__EGEx1g&feature=youtu.be)
+
 <video width="640" height="480" controls>
   <source src="./website_files/test.mp4" type="video/mp4">
 </video>
 
-For more information about this project, click this [link](https://github.com/st3117/final_project.github.io/blob/master/final_project.md) to access our final project github repository. 
+For more information about this project, click this [link](final_project.html) to access our final project github repository. 
