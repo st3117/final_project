@@ -8,15 +8,7 @@ Load 6 years NHANES data from XPT files
 
 ``` r
 files = read_csv("./data/file_link.csv")
-```
 
-    ## Parsed with column specification:
-    ## cols(
-    ##   file_name = col_character(),
-    ##   file_link = col_character()
-    ## )
-
-``` r
 demo = 
   files %>%  
   filter(str_detect(file_name, "DEMO")) %>% 
@@ -99,7 +91,7 @@ Clean Data
 ----------
 
 ``` r
-# replce 
+# replace "refused"" and "don't know" data as missing 
 nhanes = merge(demo, merge(alq, merge(inq, merge(mcq, merge(rhq, merge(smq, whq)))))) %>% 
   replace_with_na(replace = list(birth_country = c(77, 99), marital_status = c(77, 99), overweight = c(7, 9),
                                  cancer_malignancy = c(7, 9), cancer_code1 = 99, age_breast_cancer = 99999,
@@ -122,7 +114,12 @@ nhanes_model =
   filter(gender == 2) %>% 
   select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, alcohol, age_first_birth, 
          income, strata, psu, weight)
+```
 
+Dataset exploration
+-------------------
+
+``` r
 skimr::skim(nhanes_model)
 ```
 
@@ -130,7 +127,7 @@ skimr::skim(nhanes_model)
     ##  n obs: 8920 
     ##  n variables: 14 
     ## 
-    ## -- Variable type:factor -----------------------------------------------------------------------------------------------
+    ## -- Variable type:factor --------------------------------------------------------------
     ##       variable missing complete    n n_unique
     ##  breast_cancer       0     8920 8920        2
     ##         income     565     8355 8920        3
@@ -146,7 +143,7 @@ skimr::skim(nhanes_model)
     ##               2: 5919, 1: 2849, NA: 152   FALSE
     ##  201: 3101, 201: 2976, 201: 2843, NA: 0   FALSE
     ## 
-    ## -- Variable type:numeric ----------------------------------------------------------------------------------------------
+    ## -- Variable type:numeric -------------------------------------------------------------
     ##           variable missing complete    n     mean       sd       p0
     ##                age       0     8920 8920    47.56    18.38    18   
     ##  age_breast_cancer    8676      244 8920    55.86    12.97    14   
@@ -166,12 +163,6 @@ skimr::skim(nhanes_model)
     ##    100      111      123      133    <U+2587><U+2586><U+2586><U+2586><U+2586><U+2586><U+2586><U+2587>
     ##   5913.93  8639.98 15472.36 77918.61 <U+2587><U+2582><U+2581><U+2581><U+2581><U+2581><U+2581><U+2581>
 
-``` r
-nhanes_model %>% 
-  filter(breast_cancer == 1) %>% 
-  View()
-```
-
 Survey Data Design
 ------------------
 
@@ -189,12 +180,6 @@ Test logistic and survey logistic models
 ``` r
 # proposed model 1, smoking as main effectr
 model1 = svyglm(breast_cancer ~ age + race + smoke_100, family = "binomial", design = design)
-```
-
-    ## Warning in eval(family$initialize): non-integer #successes in a binomial
-    ## glm!
-
-``` r
 broom::tidy(model1)
 ```
 
@@ -213,20 +198,10 @@ broom::tidy(model1)
 ``` r
 # null model 2, include only age and race 
 model2 = svyglm(breast_cancer ~ age + race, family = "binomial", design = design)
-```
 
-    ## Warning in eval(family$initialize): non-integer #successes in a binomial
-    ## glm!
-
-``` r
 # full model 3, include all the variables mentioned in the reference
 model3 = svyglm(breast_cancer ~ age + race + smoke_100 + overweight + alcohol + age_first_birth + income, family = "binomial", design = design)
-```
 
-    ## Warning in eval(family$initialize): non-integer #successes in a binomial
-    ## glm!
-
-``` r
 # comparison of AIC between 3 models
 tibble(
   model = c("model1", "model2", "model3"),
@@ -241,6 +216,7 @@ tibble(
 | model3 |   833.398|
 
 ``` r
+# comparison between model 1 and model 3
 anova(model1, model3, method = "Wald")
 ```
 
@@ -260,7 +236,7 @@ nhanes %>%
     geom_point()
 ```
 
-![](test_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](test_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 ``` r
 nhanes_model %>% 
@@ -276,13 +252,13 @@ nhanes_model %>%
 
     ## Warning: Removed 8676 rows containing non-finite values (stat_bin).
 
-![](test_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](test_files/figure-markdown_github/unnamed-chunk-1-2.png)
 
 ``` r
 svyhist(~nhanes_model$age_breast_cancer, breaks = , design, main = "Distribution of Age at Breast Cancer")
 ```
 
-![](test_files/figure-markdown_github/unnamed-chunk-3-3.png)
+![](test_files/figure-markdown_github/unnamed-chunk-1-3.png)
 
 ``` r
 nhanes %>% 
@@ -293,7 +269,7 @@ nhanes %>%
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](test_files/figure-markdown_github/unnamed-chunk-3-4.png)
+![](test_files/figure-markdown_github/unnamed-chunk-1-4.png)
 
 ``` r
 nhanes %>% 
@@ -302,4 +278,4 @@ nhanes %>%
     geom_boxplot()
 ```
 
-![](test_files/figure-markdown_github/unnamed-chunk-3-5.png)
+![](test_files/figure-markdown_github/unnamed-chunk-1-5.png)
