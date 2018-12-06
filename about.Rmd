@@ -7,7 +7,7 @@ output: html_document
 
 ###Introduction
 
-Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime.  An inverse association between obesity and breast cancer has been reported by many studies. Previous studies have also found the age-adjusted ethnic difference in breast cancer incidence rates. Despite this disparity, the influence of obesity as a breast cancer risk factor on differences in incidence associated with ethnicity/race has received limited attention. The objective of this project is to investigate whether the impact of obesity on breast cancer varies across racial/ethnic groups from 2011 to 2016 in the United States. 
+Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime.  An inverse association between smoking and breast cancer has been reported by many studies. Previous studies have also found the age-adjusted ethnic difference in breast cancer incidence rates. Despite this disparity, the influence of smoking as a breast cancer risk factor on differences in incidence associated with ethnicity/race has received limited attention. The objective of this project is to investigate whether the impact of smoking on breast cancer varies across racial/ethnic groups from 2011 to 2016 in the United States. 
 
 ###Data
 
