@@ -1,7 +1,0 @@
----
-title: "Resume"
----
-If you would like to know more about me or talk with me, please feel free to contact me!
-
-
-<img src="./images/resume.jpg" style="width:100%">
