@@ -109,7 +109,7 @@ nhanes = merge(demo, merge(mcq, merge(whq, smq))) %>%
                                  times_lost_ten_lb = c(7, 9), self_greaest_weight = c(7777, 9999),
                                  age_heaviest = c(77777, 99999), smoke_100 = c(7, 9)))
   
-#replace_with_na_all(condition = ~.x == 9999)
+# tried replace_with_na_all() function but failed
 
 
 nhanes %>% 
