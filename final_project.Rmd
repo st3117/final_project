@@ -31,7 +31,7 @@ Also, previous study suggests household income and age at first live birth as 2 
 
 ###Initial Questions:
 
-Are there disparities in obesity and risk of breast cancer across racial/ethnic groups in the United States, when controlling for age?
+Does racial/ethnic disparity present in the association of obesity and risk of breast cancer in the United States, when we controlling for age?
 
 ###Data
 
@@ -42,7 +42,7 @@ We are going to use the Demographics, Examination Data and Dietary Data from NHA
 We cleaned our data from NHANES website from year 2011-2016, first we imported several questionnaire data and created data combination function. Then we chose and clean variables from each dataset, replaced the missing value,don't know,refused answers and selected the interest predictors and exposures.
 
 ### Weighting in NHANES Dataset
-Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
+Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the multistage complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
 
 Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions, Alcohol, Smoking History, and Income data files). 
 
