@@ -10,3 +10,5 @@ The video gives a brief introduction of our project. We will talk about why we f
 <video width="640" height="480" controls>
   <source src="./website_files/test.mp4" type="video/mp4">
 </video>
+
+For more information about this project, click this [link](https://github.com/st3117/final_project.github.io/blob/master/final_project.md) to access our final project github repository. 

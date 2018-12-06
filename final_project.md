@@ -9,7 +9,7 @@ Breast cancer is the most commonly diagnosed cancer among American women. It is 
 
 The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates include race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed.
 
-### Initial Questions:
+### Initial Research Questions:
 
 Does the risk of breast cancer increases with heavy smoking in the United States, when controlling for other covariates?
 
@@ -107,7 +107,7 @@ inq =
 
 **Scraping Method and Cleaning**
 
-To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777) “don't know” (9, 99, 999, 9999) responses as missing value. After we tidying our data, 8920 number of participants and 14 variables were included in the final dataset.
+To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777) “don't know” (9, 99, 999, 9999) responses as missing value. After we tidying our data, 8920 number of participants and 14 variables were included in the final dataset to analyze.
 
 ``` r
 # replace "refused"" and "don't know" data as missing 
@@ -149,7 +149,7 @@ skimr::skim(nhanes_model)
     ##  n obs: 8920 
     ##  n variables: 15 
     ## 
-    ## -- Variable type:factor --------------------------------------------------------------
+    ## -- Variable type:factor -----------------------------------------------------
     ##       variable missing complete    n n_unique
     ##  breast_cancer       0     8920 8920        2
     ##         income     565     8355 8920        3
@@ -165,7 +165,7 @@ skimr::skim(nhanes_model)
     ##                   2: 5919, 1: 2849, NA: 152   FALSE
     ##      201: 3101, 201: 2976, 201: 2843, NA: 0   FALSE
     ## 
-    ## -- Variable type:numeric -------------------------------------------------------------
+    ## -- Variable type:numeric ----------------------------------------------------
     ##           variable missing complete    n     mean       sd       p0
     ##                age       0     8920 8920    47.56    18.38    18   
     ##  age_breast_cancer    8676      244 8920    55.86    12.97    14   
@@ -187,7 +187,7 @@ skimr::skim(nhanes_model)
     ##    100      111      123      133    <U+2587><U+2586><U+2586><U+2586><U+2586><U+2586><U+2586><U+2587>
     ##   5913.93  8639.98 15472.36 77918.61 <U+2587><U+2582><U+2581><U+2581><U+2581><U+2581><U+2581><U+2581>
 
-When we build the model, keep in mind that there are 565 missing in income, 152 missing in smoking, 3885 missing in age at first birth, 4118 missing in alcohol, which may cause problem in model comparison.
+After we built the model, we found there are 565 missing responses in income, 152 missing in smoking, 3885 missing in age at first birth, 4118 missing in alcohol, which may lead to potential bias in model comparison and estimation.
 
 ### Weighting in NHANES Dataset
 
@@ -200,26 +200,13 @@ Based on the tutorial for National Health and Nutrition Examination Survey, we s
 design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~weight, nest = TRUE)
 ```
 
-Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ \*WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data.
-
-### Exploratory analysis:
-
-Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted the Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead.
+Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ \*WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. \#\#\# Exploratory analysis: Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted a Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead.
 
 Discussion and Implication:
 ---------------------------
 
--   Planned analyses
-    -   Analyze the age onset of breast cancer across the total population, and the distribution of smoking incidences across racial/ethnic groups
-    -   Use logistic regression to investigate the association between smoking and breast cancer in each race/ethnic groups
--   Visualizations
-    -   Boxplot of breast cancer incidences across racial/ethnic groups
-    -   Histogram of breast cancer incidences in each age groups
-    -   Scatter plot of breast cancer incidences in each racial/ethnic group across 6 years
-    -   Perform logistic regression
-
 ``` r
-# proposed model 1, smoking as main effectr
+# proposed model 1, smoking as main effect
 model1 = svyglm(breast_cancer ~ age + race + smoke_100, family = "binomial", design = design)
 
 # null model 2, include only age and race 
@@ -268,7 +255,7 @@ anova(model1, model3, method = "Wald")
 # p-value > 0.1, we can conclude that proposed mode is similar to the full model
 ```
 
-The proposed model (model 1) with smoking as the main effect is significantly better than the null model at alpha = 0.1 level, while the proposed model is similar to the full model. Thus, it is reasonable to use the proposed model.
+Again, the proposed model (model 1) with smoking as the main effect is significantly better than the null model at alpha = 0.1 level, while the proposed model is similar to the full model. Thus, it is reasonable to use the proposed model.
 
 ``` r
 broom::tidy(model1) %>% 
@@ -279,23 +266,23 @@ broom::tidy(model1) %>%
   knitr::kable(digit = 3)
 ```
 
-| term         |    beta|  p.value|     OR|  conf.low|  conf.high|
-|:-------------|-------:|--------:|------:|---------:|----------:|
-| (Intercept)  |  -7.696|    0.000|  0.000|     0.000|      0.001|
-| age          |   0.071|    0.000|  1.073|     1.065|      1.082|
-| raceAsian    |  -0.125|    0.681|  0.883|     0.538|      1.448|
-| raceBlack    |  -0.334|    0.088|  0.716|     0.523|      0.980|
-| raceHispanic |   0.092|    0.684|  1.096|     0.759|      1.584|
-| raceMexican  |  -0.473|    0.059|  0.623|     0.418|      0.929|
-| raceOther    |  -0.332|    0.605|  0.718|     0.252|      2.045|
-| smoke\_1001  |   0.358|    0.081|  1.431|     1.029|      1.988|
-
-The odds of getting breast cancer among women who had smoked is 1.431 times the odds comparing to the ones who had not smoked controlling for age and race. The true odds ratio lies between 1.029 and 1.988.
+| term            |       beta|    p.value|        OR|     conf.low|                                                                                                                                                                                                                     conf.high|
+|:----------------|----------:|----------:|---------:|------------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| (Intercept)     |     -7.696|      0.000|     0.000|        0.000|                                                                                                                                                                                                                         0.001|
+| age             |      0.071|      0.000|     1.073|        1.065|                                                                                                                                                                                                                         1.082|
+| raceAsian       |     -0.125|      0.681|     0.883|        0.538|                                                                                                                                                                                                                         1.448|
+| raceBlack       |     -0.334|      0.088|     0.716|        0.523|                                                                                                                                                                                                                         0.980|
+| raceHispanic    |      0.092|      0.684|     1.096|        0.759|                                                                                                                                                                                                                         1.584|
+| raceMexican     |     -0.473|      0.059|     0.623|        0.418|                                                                                                                                                                                                                         0.929|
+| raceOther       |     -0.332|      0.605|     0.718|        0.252|                                                                                                                                                                                                                         2.045|
+| smoke\_1001     |      0.358|      0.081|     1.431|        1.029|                                                                                                                                                                                                                         1.988|
+| Then we compute |  d the our|  odds rati|  o estima|  te and conf|  idence interval using a 10% level of significance. We found that the odds of getting breast cancer among women who had smoked is 1.431 times the odds comparing to the ones who had not smoked controlling for age and race.|
+| The true odds r |  atio lies|  between 1|  .029 and|       1.988.|                                                                                                                                                                                                                              |
 
 Visualization
 -------------
 
-Since we are using weight, strata and cluster data, which is not the same as the original data, we have to use the 'svyplot' to do the visualization
+Since we should consider the effect of weighting for NHANES data, strata and cluster data are not the same as the raw data. Therefore, we have to use the 'svyplot' function for visualization.
 
 ``` r
 # Distribution of Age at Breast Cancer
@@ -321,16 +308,16 @@ svyboxplot(age_breast_cancer ~ year, design, xlab = "Interview Year", ylab = "Ag
 ![](final_project_files/figure-markdown_github/plots-3.png)
 
 -   The histogram plot "Distribution of Age at Breast Cancer"showed that women within 50 - 60 age group have the highest risk of getting breast cancer than the other age group.
--   The boxplot "Distribution of Age at Breast Cancer Across Racial Groups" showed that Asian and 'Other' race group have relatively earilier breast cancer onset, while White and Mexican American have later breast cancer onset.
--   The boxplot "Distribution of Age at Breast Cancer Across Three Interviews" showed that the age of women getting breast cancer are similar in three interview period.
+
+-   The boxplot "Distribution of Age at Breast Cancer Across Racial Groups" showed that Asian and 'Other' race group have relatively earlier breast cancer onset, while White and Mexican American have a later breast cancer onset.
+-   The boxplot "Distribution of Age at Breast Cancer Across Three Interviews" indicated that the age of women getting breast cancer are similar in three interview period.
 
 Discussion
 ----------
 
--   Since we are using NHANES data, which is normally analized using SAS, we met lots of difficulties applying the survey design.
--   Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, some of the definitions of the variables were not what we expected.
--   We're not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot".
--   Our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.
+-   Since we are using NHANES data, which is normally analyzed using SAS, we encountered a lot of difficulties applying the survey design.
+-   Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, the definitions and question regarding some variables were not as clear or as what we expected.
+-   We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot". *In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots. *Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.
 
 References
 ----------
