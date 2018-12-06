@@ -259,8 +259,8 @@ svyboxplot(age_breast_cancer ~ year, design, xlab = "Interview Year", ylab = "Ag
 * Since we are using NHANES data, which is normally analyzed using SAS, we encountered a  lot of difficulties applying the survey design.
 * Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, the definitions and question regarding some variables were not as clear or as what we expected. 
 * We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot". 
-*In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.
-*Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.
+* In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.
+* Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.
 
 ## References
 1. Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* https://academic.oup.com/advances/article/6/6/803/4555151
