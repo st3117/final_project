@@ -1,0 +1,18 @@
+name: "P8180 Final Project"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "Abstract"
+      href: about.html
+    - text: "Visualization"
+      href: Visualization.html
+    - text: "Who are we"
+      href: Introduction.html
+    - icon: fa-github fa-lg
+      href: https://github.com/st3117/final_project
+   
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate

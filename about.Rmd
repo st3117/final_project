@@ -1,0 +1,31 @@
+---
+title: "Disparities in Obesity and Risk of Breast Cancer across Racial/Ethnic Groups in the United States, Using NHANES 2011-16 Datasets"
+author: "Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157),  Boya Guo (bg2604)"
+date: "December 6, 2018"
+output: html_document
+---
+
+###Introduction
+
+Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime.  An inverse association between obesity and breast cancer has been reported by many studies. Previous studies have also found the age-adjusted ethnic difference in breast cancer incidence rates. Despite this disparity, the influence of obesity as a breast cancer risk factor on differences in incidence associated with ethnicity/race has received limited attention. The objective of this project is to investigate whether the impact of obesity on breast cancer varies across racial/ethnic groups from 2011 to 2016 in the United States. 
+
+###Data
+
+**Source**
+
+We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
+
+**Scraping Method and Cleaning**
+
+We cleaned our data from NHANES website from year 2011-2016, first we imported several questionnaire data and created data combination function. Then we chose and clean variables from each dataset, replaced the missing value,don't know,refused answers and selected the interest predictors and exposures.
+
+###Method
+
+**Weighting in NHANES Dataset**
+
+Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
+
+Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions data files). 
+
+Since Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. 
+

@@ -1,0 +1,18 @@
+---
+title: "Who are we"
+author: "Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157),  Boya Guo (bg2604)"
+date: "December 6, 2018"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(png)
+library(grid)
+library(gridExtra)
+```
+
+
+img1 <-  rasterGrob(as.raster(readPNG("path/to/picture1.png")), interpolate = FALSE)
+img2 <-  rasterGrob(as.raster(readPNG("path/to/picture2.png")), interpolate = FALSE)
+grid.arrange(img1, img2, ncol = 2)
