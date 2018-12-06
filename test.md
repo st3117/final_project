@@ -171,9 +171,6 @@ Survey Data Design
 design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~weight, nest = TRUE)
 ```
 
-Simple Statistics
------------------
-
 Test logistic and survey logistic models
 ----------------------------------------
 

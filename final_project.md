@@ -3,30 +3,17 @@ The Association of Smoking and the Risk of Developing Breast Cancer in the Unite
 Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095), Ditian Li (dl3157), Boya Guo (bg2604)
 December 6, 2018
 
-Motivation
-----------
+### Motivation and Related Works
 
 Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime. An inverse association between smoking and breast cancer survival rate has been reported by many studies. A history of cigarette smoking can significantly increase the risk of breast cancer. However, there is a limited number of prior literatures investigate the association of smoking and breast cancer at a population level using national survey data. To address this knowledge gap, we conduct this secondary data analysis study on the National Health and Nutrition Examination Survey (NHANES) from year 2011 to 2016 to see if there is a trend of smoking and breast cancer risk across years in the United States.
 
-Related work
-------------
+The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates include race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed.
 
-Instruction from CDC website indicates smoking status as a risk factor that could be changed, which is the main effect of our study. We also find whether the subject is overweight, alcohol consumption as potential factors of from the website. Also, previous studies suggest household income and age at first live birth as 2 important predictors for breast cancer. Age and race are the two variables we need to adjust for in our models.
+### Initial Questions:
 
-Initial Questions:
-------------------
+Does the risk of breast cancer increases with heavy smoking in the United States, when controlling for other covariates?
 
-Does racial/ethnic disparity present in the association of obesity and risk of breast cancer in the United States, when we controlling for age?
-
-The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates such as race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed.
-
-Initial Questions:
-------------------
-
-Does the risk of breast cancer increases with heavy smoking in the United States, when we controlling for other covariates?
-
-Data
-----
+### Data
 
 **Source** We used the Demographics and Questionnaire data files from the NHANES 2011-2016 datasets (<https://wwwn.cdc.gov/nchs/nhanes/Default.aspx>). NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population.
 
@@ -120,6 +107,8 @@ inq =
 
 **Scraping Method and Cleaning**
 
+To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777) “don't know” (9, 99, 999, 9999) responses as missing value. After we tidying our data, 8920 number of participants and 14 variables were included in the final dataset.
+
 ``` r
 # replace "refused"" and "don't know" data as missing 
 nhanes = merge(demo, merge(alq, merge(inq, merge(mcq, merge(rhq, merge(smq, whq)))))) %>% 
@@ -145,10 +134,11 @@ nhanes_model =
          race = fct_relevel(as.factor(race), "White"),
          overweight = fct_relevel(as.factor(overweight), '2'),
          smoke_100 = fct_relevel(as.factor(smoke_100), '2'),
-         income = fct_relevel(as.factor(income), '2')) %>% 
+         income = fct_relevel(as.factor(income), '2'),
+         bmi = (self_weight*0.453592)/(self_height*0.0254)^2) %>% 
   filter(gender == 2) %>% 
   select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, alcohol, age_first_birth, 
-         income, strata, psu, weight)
+         income, bmi, strata, psu, weight)
 ```
 
 ``` r
@@ -157,7 +147,7 @@ skimr::skim(nhanes_model)
 
     ## Skim summary statistics
     ##  n obs: 8920 
-    ##  n variables: 14 
+    ##  n variables: 15 
     ## 
     ## -- Variable type:factor --------------------------------------------------------------
     ##       variable missing complete    n n_unique
@@ -181,6 +171,7 @@ skimr::skim(nhanes_model)
     ##  age_breast_cancer    8676      244 8920    55.86    12.97    14   
     ##    age_first_birth    3885     5035 8920    22.2      4.93    14   
     ##            alcohol    4118     4802 8920     2.14     1.79     1   
+    ##                bmi     347     8573 8920    28.45     7.31    14.14
     ##                 id       0     8920 8920 78315.31  9172.62 62164   
     ##                psu       0     8920 8920     1.53     0.55     1   
     ##             strata       0     8920 8920   111.26    12.94    90   
@@ -190,20 +181,15 @@ skimr::skim(nhanes_model)
     ##     47.75    56       65       80    <U+2581><U+2581><U+2582><U+2586><U+2587><U+2587><U+2586><U+2583>
     ##     19       21       25       43    <U+2583><U+2587><U+2583><U+2583><U+2582><U+2581><U+2581><U+2581>
     ##      1        2        3       30    <U+2587><U+2581><U+2581><U+2581><U+2581><U+2581><U+2581><U+2581>
+    ##     23.03    27.27    32.28    77.94 <U+2583><U+2587><U+2585><U+2581><U+2581><U+2581><U+2581><U+2581>
     ##  69930.75 78955.5  86133    93702    <U+2587><U+2587><U+2585><U+2587><U+2587><U+2587><U+2587><U+2587>
     ##      1        2        2        3    <U+2587><U+2581><U+2581><U+2587><U+2581><U+2581><U+2581><U+2581>
     ##    100      111      123      133    <U+2587><U+2586><U+2586><U+2586><U+2586><U+2586><U+2586><U+2587>
     ##   5913.93  8639.98 15472.36 77918.61 <U+2587><U+2582><U+2581><U+2581><U+2581><U+2581><U+2581><U+2581>
 
-Weighting in NHANES Dataset
----------------------------
+When we build the model, keep in mind that there are 565 missing in income, 152 missing in smoking, 3885 missing in age at first birth, 4118 missing in alcohol, which may cause problem in model comparison.
 
-Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the multistage complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis.
-
-To investigate the association between smoking and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777) “don't know” (9, 99, 999, 9999) responses as missing value.
-
-Weighting in NHANES Dataset
----------------------------
+### Weighting in NHANES Dataset
 
 Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis.
 
@@ -216,10 +202,9 @@ design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~
 
 Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ \*WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data.
 
-Exploratory analysis:
----------------------
+### Exploratory analysis:
 
-Visualizations, summaries, and exploratory statistical analyses. Justify the steps you took, and show any major changes to your ideas.
+Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted the Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead.
 
 Discussion and Implication:
 ---------------------------
@@ -338,6 +323,14 @@ svyboxplot(age_breast_cancer ~ year, design, xlab = "Interview Year", ylab = "Ag
 -   The histogram plot "Distribution of Age at Breast Cancer"showed that women within 50 - 60 age group have the highest risk of getting breast cancer than the other age group.
 -   The boxplot "Distribution of Age at Breast Cancer Across Racial Groups" showed that Asian and 'Other' race group have relatively earilier breast cancer onset, while White and Mexican American have later breast cancer onset.
 -   The boxplot "Distribution of Age at Breast Cancer Across Three Interviews" showed that the age of women getting breast cancer are similar in three interview period.
+
+Discussion
+----------
+
+-   Since we are using NHANES data, which is normally analized using SAS, we met lots of difficulties applying the survey design.
+-   Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, some of the definitions of the variables were not what we expected.
+-   We're not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot".
+-   Our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.
 
 References
 ----------

@@ -175,7 +175,6 @@ nhanes_model =<span class="st"> </span>
 <h2 id="survey-data-design">Survey Data Design</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make Survey Design</span>
 design =<span class="st"> </span><span class="kw">svydesign</span>(<span class="dt">id =</span> <span class="op">~</span>psu, <span class="dt">strata =</span> <span class="op">~</span>strata, <span class="dt">data =</span> nhanes_model, <span class="dt">weights =</span> <span class="op">~</span>weight, <span class="dt">nest =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<h2 id="simple-statistics">Simple Statistics</h2>
 <h2 id="test-logistic-and-survey-logistic-models">Test logistic and survey logistic models</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># proposed model 1, smoking as main effectr</span>
 model1 =<span class="st"> </span><span class="kw">svyglm</span>(breast_cancer <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>smoke_<span class="dv">100</span>, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">design =</span> design)

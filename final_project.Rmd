@@ -158,10 +158,11 @@ nhanes_model =
          race = fct_relevel(as.factor(race), "White"),
          overweight = fct_relevel(as.factor(overweight), '2'),
          smoke_100 = fct_relevel(as.factor(smoke_100), '2'),
-         income = fct_relevel(as.factor(income), '2')) %>% 
+         income = fct_relevel(as.factor(income), '2'),
+         bmi = (self_weight*0.453592)/(self_height*0.0254)^2) %>% 
   filter(gender == 2) %>% 
   select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, alcohol, age_first_birth, 
-         income, strata, psu, weight)
+         income, bmi, strata, psu, weight)
 
 ```
 
@@ -170,6 +171,8 @@ nhanes_model =
 skimr::skim(nhanes_model)
 
 ```
+
+When we build the model, keep in mind that there are 565 missing in income, 152 missing in smoking, 3885 missing in age at first birth, 4118 missing in alcohol, which may cause problem in model comparison.
 
 ### Weighting in NHANES Dataset
 Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
@@ -265,6 +268,12 @@ svyboxplot(age_breast_cancer ~ year, design, xlab = "Interview Year", ylab = "Ag
 * The boxplot "Distribution of Age at Breast Cancer Across Racial Groups" showed that Asian and 'Other' race group have relatively earilier breast cancer onset, while White and Mexican American have later breast cancer onset.
 * The boxplot "Distribution of Age at Breast Cancer Across Three Interviews" showed that the age of women getting breast cancer are similar in three interview period.
 
+
+## Discussion
+* Since we are using NHANES data, which is normally analized using SAS, we met lots of difficulties applying the survey design.
+* Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, some of the definitions of the variables were not what we expected. 
+* We're not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on "svyplot".
+* Our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.
 
 
 ## References
