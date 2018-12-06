@@ -20,6 +20,18 @@ library(survey)
 
 ## Load 6 years NHANES data from XPT files
 
+```{r}
+
+files = read_csv("./data/file_link.csv")
+
+
+
+
+```
+
+
+
+
 ```{r load_nhanes}
 
 # create import functions
@@ -47,6 +59,14 @@ smq_file_list = list.files("./data/") %>%
   list.filter(str_detect(., "SMQ")) %>% 
   paste0("./data/", .)
 
+alq_file_list = list.files("./data/") %>% 
+  list.filter(str_detect(., "ALQ")) %>% 
+  paste0("./data/", .)
+
+_file_list = list.files("./data/") %>% 
+  list.filter(str_detect(., "ALQ")) %>% 
+  paste0("./data/", .)
+
 # create data combination function
 combine_datasets = function(x) {
   
@@ -56,6 +76,7 @@ combine_datasets = function(x) {
                                                                 DMDMARTL, RIDEXPRG, SDMVPSU, SDMVSTRA, WTINT2YR),
                        ifelse(str_detect(name, "WHO") == TRUE, SELECT(), 
                               ifelse(str_detect(name, "SMQ") == TRUE, SELECT(SEQN, SMQ020),
+                                     ifelse(str_detect(name, "ALQ") == TRUE, SELECT(SEQN, ALQ110)),
                               SELECT(SEQN, MCQ080, MCQ220, MCQ230a, MCQ230b, MCQ240e, MCQ365a, MCQ365b, MCQ365d))))
 
 }
@@ -63,7 +84,7 @@ combine_datasets = function(x) {
 # choose and clean variables from each dataset
 demo = 
   map_dfr(demo_file_list, read_xpt_final) %>% 
-  select(id = SEQN, gender = RIAGENDR, age = RIDAGEYR, race = RIDRETH3, six_month = RIDEXMON, 
+  select(id = SEQN, gender = RIAGENDR, age = RIDAGEYR, race = RIDRETH3, edu = DMDEDUC3, six_month = RIDEXMON, 
          birth_country = DMDBORN4, marital_status = DMDMARTL, pregancy_at_exam = RIDEXPRG, strata = SDMVSTRA, 
          psu = SDMVPSU, weight = WTINT2YR, name) %>% 
   mutate(year = as.factor(ifelse(str_detect(name, "_G") == TRUE, "2011-2012", 
@@ -95,6 +116,13 @@ whq =
                        ifelse(str_detect(name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
   select(id, year, self_height:age_heaviest)
 
+alq = 
+  map_dfr(alq_file_list, read_xpt_final) %>% 
+  select(id = SEQN, alcohol = ALQ110, name) %>% 
+  mutate(year = as.factor(ifelse(str_detect(name, "_G") == TRUE, "2011-2012", 
+                       ifelse(str_detect(name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, alcohol)
+
 ```
 
 ## Clean Data
@@ -102,7 +130,7 @@ whq =
 ```{r clean_data}
 
 # replce 
-nhanes = merge(demo, merge(mcq, merge(whq, smq))) %>% 
+nhanes = merge(demo, merge(mcq, merge(whq, merge(smq, alq)))) %>% 
   replace_with_na(replace = list(birth_country = c(77, 99), marital_status = c(77, 99), overweight = c(7, 9),
                                  cancer_malignancy = c(7, 9), cancer_code1 = 99, age_breast_cancer = 99999,
                                  told_lose_weight = c(7, 9), told_exercise = c(7, 9), told_reduce_fat = c(7, 9),
@@ -120,9 +148,13 @@ nhanes_model =
          overweight = fct_relevel(as.factor(overweight), '2'),
          smoke_100 = fct_relevel(as.factor(smoke_100), '2')) %>% 
   filter(gender == 2) %>% 
-  select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, strata, psu, weight)
+  select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, alcohol, strata, psu, weight)
 
 skimr::skim(nhanes_model)
+
+nhanes_model %>% 
+  filter(breast_cancer == 1) %>% 
+  View()
 
 ```
 
@@ -160,9 +192,11 @@ broom::tidy(model1)
 
 
 
-model2 = svyglm(breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", design = des)
+model2 = svyglm(breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", design = design)
 broom::tidy(model2)
-
+summary(model2)
+broom::glance(model2)
+AIC(model2)
 
 ```
 
