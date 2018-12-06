@@ -20,25 +20,18 @@ theme_set(theme_bw())
 
 ```
 
-## Motivation 
+###Motivation and Related Works
 
 Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime. An inverse association between smoking and breast cancer survival rate has been reported by many studies. A history of cigarette smoking can significantly increase the risk of breast cancer. However, there is a limited number of prior literatures investigate the association of smoking and breast cancer at a population level using national survey data. To address this knowledge gap, we conduct this secondary data analysis study on the National Health and Nutrition Examination Survey (NHANES) from year 2011 to 2016 to see if there is a trend of smoking and breast cancer risk across years in the United States. 
 
-## Related work
+The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates include  race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed. 
 
-Instruction from CDC website indicates smoking status as a risk factor that could be changed, which is the main effect of our study. We also find whether the subject is overweight, alcohol consumption as potential factors of from the website.
-Also, previous studies suggest household income and age at first live birth as 2 important predictors for breast cancer. Age and race are the two variables we need to adjust for in our models.
 
-## Initial Questions:
+###Initial Questions:
+Does the risk of breast cancer increases with heavy smoking in the United States, when controlling for other covariates?
 
-Does racial/ethnic disparity present in the association of obesity and risk of breast cancer in the United States, when we controlling for age?
 
-The key predictor of interest was established using the question on “have you smoked at least 100 cigarettes in your entire life”. The outcome of this study used the question “what kind of cancer was it”. Other covariates such as race, age, alcohol, overweight, income, and age at the first birth were identified based on literature review from Pubmed. 
-
-## Initial Questions:
-Does the risk of breast cancer increases with heavy smoking in the United States, when we controlling for other covariates?
-
-## Data
+###Data
 
 **Source**
 We used the Demographics and Questionnaire data files from the NHANES 2011-2016 datasets (https://wwwn.cdc.gov/nchs/nhanes/Default.aspx). NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. 
@@ -133,7 +126,11 @@ inq =
 
 ```
 
+
 **Scraping Method and Cleaning**
+
+To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777)  “don't know” (9, 99, 999, 9999) responses as missing value. After we tidying our data, 8920 number of participants and 14 variables were included in the final dataset.  
+
 
 ```{r clean_data}
 
@@ -174,12 +171,7 @@ skimr::skim(nhanes_model)
 
 ```
 
-## Weighting in NHANES Dataset
-Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the multistage complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
-
-To investigate the association between smoking and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777)  “don't know” (9, 99, 999, 9999) responses as missing value. 
-
-## Weighting in NHANES Dataset
+### Weighting in NHANES Dataset
 Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
 
 Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions data files). 
@@ -194,7 +186,7 @@ design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~
 Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight used for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. 
 
 ## Exploratory analysis: 
-Visualizations, summaries, and exploratory statistical analyses. Justify the steps you took, and show any major changes to your ideas.
+Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted the Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead. 
 
 ## Discussion and Implication: 
 

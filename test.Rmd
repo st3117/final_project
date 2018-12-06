@@ -150,9 +150,6 @@ design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~
 
 ```
 
-## Simple Statistics
-
-
 ## Test logistic and survey logistic models
 
 ```{r test_logistic, warning = FALSE}
