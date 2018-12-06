@@ -1,7 +1,7 @@
 ---
-title: "Final Project"
+title: "Disparities in obesity and risk of breast cancer across racial/ethnic groups in the United States, using NHANES 2011-16 datasets"
 author: Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157),  Boya Guo (bg2604)
-date: "November 7, 2018"
+date: "December 6, 2018"
 output: github_document
 ---
 
@@ -20,16 +20,15 @@ knitr::opts_chunk$set(
 theme_set(theme_bw())
 ```
 
-## Team Registration and Proposal
+###Motivation 
 
-### Group members
-Sha Tao (st3117), Jingqi Song (js5165), Yixuan Wang (yw3095),  Ditian Li (dl3157), and Boya Guo (bg2604)
-
-### Tentative project title
-Disparities in obesity and risk of breast cancer across racial/ethnic groups in the United States, using NHANES 2011-16 datasets
-
-### Motivation for this project
 Breast cancer is the most commonly diagnosed cancer among American women. It is estimated that about 1 in 8 U.S women will develop invasive breast cancer over the course of lifetime.  An inverse association between obesity and breast cancer has been reported by many studies. Previous studies have also found the age-adjusted ethnic difference in breast cancer incidence rates. Despite this disparity, the influence of obesity as a breast cancer risk factor on differences in incidence associated with ethnicity/race has received limited attention. The objective of this project is to investigate whether the impact of obesity on breast cancer varies across racial/ethnic groups from 2011 to 2016 in the United States. 
+
+###Study Aims
+
+* Establish a model representing the relationship between breast cancer and interested predictors race, age, weight, overweight.
+** 
+
 
 ### Intended final products
 We plan to present our project using the format of website and narrated screencast. In addition, we will create graphs, charts and/or Infographic and post them on our website. 
