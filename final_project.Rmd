@@ -39,21 +39,19 @@ We are going to use the Demographics, Examination Data and Dietary Data from NHA
 **Scraping Method**
 
 
+**Cleaning**
 
 
 
 
 
-* Establish a model representing the relationship between breast cancer and interested predictors race, age, weight, overweight.
-** Visualization 
 
 
 
 ### Intended final products
 We plan to present our project using the format of website and narrated screencast. In addition, we will create graphs, charts and/or Infographic and post them on our website. 
 
-### Anticipated data sources
-We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
+
 
 ### Planned analyses / visualizations / coding challenges
 * Planned analyses
