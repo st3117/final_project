@@ -67,5 +67,26 @@ alq =
   select(id, year, alcohol)
   
 
+rhq = 
+  files %>% 
+  filter(str_detect(file_name, "RHQ")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, age_first_birth = RHD180) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, age_first_birth)
+
+inq = 
+  files %>% 
+  filter(str_detect(file_name, "INQ")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, income = INDFMMPC) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, income)
+
+
 ```
 
