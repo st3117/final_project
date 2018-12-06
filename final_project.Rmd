@@ -50,9 +50,6 @@ Since Demographics and Questionnaire data were both collected as part of the hou
 
 
 
-### Intended final products
-We plan to present our project using the format of website and narrated screencast. In addition, we will create graphs, charts and/or Infographic and post them on our website. 
-
 
 
 ### Planned analyses / visualizations / coding challenges
@@ -67,13 +64,7 @@ We plan to present our project using the format of website and narrated screenca
     + In order to calculate the most accurate measure, we should use weighted analyses for complex survey design such as NHANES datasets. We expect there will be coding challenges regarding how to perform weighted analyses.
     + Perform logistic regression
 
-### Planned timeline
-We plan to meet on a weekly basis to discuss the project progress, and will follow the timeline below:
-```{r timeline, echo = FALSE, message = FALSE}
 
-read_csv("./data/time_line.csv") %>% knitr::kable()
-
-```
 
 ### References
 1. Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* https://academic.oup.com/advances/article/6/6/803/4555151
