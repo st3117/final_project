@@ -1,0 +1,71 @@
+---
+title: "import_test"
+author: "Sha Tao"
+date: "December 5, 2018"
+output: html_document
+---
+
+```{r}
+
+
+files = read_csv("./data/file_link.csv")
+
+demo = 
+  files %>%  
+  filter(str_detect(file_name, "DEMO")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, gender = RIAGENDR, age = RIDAGEYR, race = RIDRETH3, edu = DMDEDUC3, 
+         six_month = RIDEXMON, birth_country = DMDBORN4, marital_status = DMDMARTL, 
+         pregancy_at_exam = RIDEXPRG, strata = SDMVSTRA, psu = SDMVPSU, weight = WTINT2YR) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016"))),
+         weight = 1/3 * weight) %>% 
+  select(id, year, gender:weight)
+
+mcq = 
+  files %>% 
+  filter(str_detect(file_name, "MCQ")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, overweight = MCQ080, cancer_malignancy = MCQ220, cancer_code1 = MCQ230A, 
+         cancer_code2 = MCQ230B, age_breast_cancer = MCQ240E, told_lose_weight = MCQ365A, 
+         told_exercise = MCQ365B, told_reduce_fat = MCQ365D) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, overweight:told_reduce_fat)
+
+smq = 
+  files %>% 
+  filter(str_detect(file_name, "SMQ")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, smoke_100 = SMQ020) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, smoke_100)
+
+whq = 
+  files %>% 
+  filter(str_detect(file_name, "WHQ")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, self_height = WHD010, self_weight = WHD020, times_lost_ten_lb = WHQ225, 
+         self_greaest_weight = WHD140, age_heaviest = WHQ150) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, self_height:age_heaviest)
+  
+alq = 
+  files %>% 
+  filter(str_detect(file_name, "ALQ")) %>% 
+  mutate(map(.x = file_link, ~read_xpt(.x))) %>% 
+  unnest %>% 
+  select(file_name, id = SEQN, alcohol = ALQ110) %>% 
+  mutate(year = as.factor(ifelse(str_detect(file_name, "_G") == TRUE, "2011-2012", 
+                          ifelse(str_detect(file_name, "_H") == TRUE, "2013-2014", "2015-2016")))) %>% 
+  select(id, year, alcohol)
+  
+
+```
+
