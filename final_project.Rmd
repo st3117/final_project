@@ -37,7 +37,7 @@ We used the Demographics and Questionnaire data files from the NHANES 2011-2016 
 **Scraping Method and Cleaning**
 
 
-To investigate the association between obesity and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777)  “don't know” (9, 99, 999, 9999) responses as missing value. 
+To investigate the association between smoking and risk of breast cancer across racial/ethnic groups from 2011 to 2016, we pooled the Demographics (demo), Weight History (whq), Medical Conditions (mcq), Smoking History (smq), Alcohol (alq), and Income (inq) data files for each survey cycle using the urls. Then, we merged and tidied our data. We recoded “refused” (7 or 77 or 777)  “don't know” (9, 99, 999, 9999) responses as missing value. 
 
 ### Weighting in NHANES Dataset
 Weights variables were created in NHANES dataset to analyze NHANES dataset to account for the complex survey design. NHANES survey consists initial in-home interview, Mobile Examination Centers (MEC) examinations and follow-up questionnaires. The base weights were adjusted for nonresponse to the in-home interview when creating interview weights, and further adjusted for non-response to the MEC exam when creating exam weights. Therefore, to correctly analyze NHANES dataset, we need to consider the effects of weighting on our sample to make a better estimate for the population before we start our analysis. 
@@ -52,8 +52,8 @@ Visualizations, summaries, and exploratory statistical analyses. Justify the ste
 ### Discussion and Implication: 
 
 * Planned analyses
-    + Analyze the age onset of breast cancer across the total population, and the distribution of obesity incidences across racial/ethnic groups
-    + Use logistic regression to investigate the association between obesity and breast cancer in each race/ethnic groups 
+    + Analyze the age onset of breast cancer across the total population, and the distribution of smoking incidences across racial/ethnic groups
+    + Use logistic regression to investigate the association between smoking and breast cancer in each race/ethnic groups 
 * Visualizations
     + Boxplot of breast cancer incidences across racial/ethnic groups
     + Histogram of breast cancer incidences in each age groups
@@ -62,8 +62,8 @@ Visualizations, summaries, and exploratory statistical analyses. Justify the ste
 
 
 ### References
-1. Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of Obesity on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* https://academic.oup.com/advances/article/6/6/803/4555151
+1. Bandera, Elisa V., et al. "Racial and Ethnic Disparities in the Impact of smoking on Breast Cancer Risk and Survival: A Global Perspective–." *Advances in Nutrition 6.6 (2015): 803-819.* https://academic.oup.com/advances/article/6/6/803/4555151
 2. Chlebowski, Rowan T., et al. "Ethnicity and breast cancer: factors influencing differences in incidence and outcome." *Journal of the National Cancer Institute 97.6 (2005): 439-448.* https://academic.oup.com/jnci/article/97/6/439/2544155
-3. Picon‐Ruiz, Manuel, et al. "Obesity and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention." *CA: a cancer journal for clinicians 67.5 (2017): 378-397.* https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405
+3. Picon‐Ruiz, Manuel, et al. "smoking and adverse breast cancer risk and outcome: mechanistic insights and strategies for intervention." *CA: a cancer journal for clinicians 67.5 (2017): 378-397.* https://onlinelibrary.wiley.com/doi/full/10.3322/caac.21405
 4. Module 3: Weighting. National Center for Health Statistics. Centers for Disease Control and Prevention. Retrieved from https://wwwn.cdc.gov/nchs/nhanes/tutorials/Module3.aspx
 5. Kispert, S., & McHowat, J. (2017). Recent insights into cigarette smoking as a lifestyle risk factor for breast cancer. Breast Cancer: Targets and Therapy, 9, 127.
