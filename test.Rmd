@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 library(haven)
-library(rlist)
 library(naniar)
 library(rvest)
 library(httr)
@@ -153,15 +152,6 @@ design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~
 
 ## Simple Statistics
 
-```{r}
-
-svymean(~nhanes_model$age_breast_cancer, design = design, na.rm = TRUE)
-mean(nhanes_model$age_breast_cancer, na.rm = TRUE)
-
-test_df %>% filter(breast_cancer == 1) %>% View()
-levels(test_df$smoke_100)
-
-```
 
 ## Test logistic and survey logistic models
 
@@ -172,37 +162,18 @@ model1 = svyglm(breast_cancer ~ age + race + smoke_100, family = "binomial", des
 broom::tidy(model1)
 
 # null model 2, include only age and race 
-model2 = svyglm(breast_cancer ~ age + race + smoke_100 + overweight + alcohol + age_first_birth + income, family = "binomial", design = design)
-broom::tidy(model1)
+model2 = svyglm(breast_cancer ~ age + race, family = "binomial", design = design)
 
-# full model 3, include 
+# full model 3, include all the variables mentioned in the reference
+model3 = svyglm(breast_cancer ~ age + race + smoke_100 + overweight + alcohol + age_first_birth + income, family = "binomial", design = design)
 
+# comparison of AIC between 3 models
+tibble(
+  model = c("model1", "model2", "model3"),
+  AIC = c(summary(model1)$aic, summary(model2)$aic, summary(model3)$aic)) %>% 
+  knitr::kable(digit = 3)
 
-
-summary(model1)
-broom::glance(model7)
-AIC(model1)
-summary(model3)$aic
-
-AIC(model3)
-
-model6 = glm(breast_cancer ~ age + race + overweight + smoke_100 + alcohol + age_first_birth + income, data = nhanes_model, family = "binomial")
-broom::tidy(model6)
-
-AIC(model6)
-
-
-model7 = glm(breast_cancer ~ age + race + overweight + alcohol, data = nhanes_model, family = "binomial")
-broom::tidy(model7)
-
-AIC(model7)
-
-
-model1 = glm(formula = breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", data = test_df)
-broom::tidy(model1)
-
-
-
+anova(model1, model3, method = "Wald")
 
 ```
 
