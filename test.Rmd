@@ -19,7 +19,7 @@ library(survey)
 
 ## Load 6 years NHANES data from XPT files
 
-```{r}
+```{r loading_data, message = FALSE}
 
 files = read_csv("./data/file_link.csv")
 
@@ -103,12 +103,11 @@ inq =
 
 ```
 
-
 ## Clean Data
 
 ```{r clean_data}
 
-# replce 
+# replace "refused"" and "don't know" data as missing 
 nhanes = merge(demo, merge(alq, merge(inq, merge(mcq, merge(rhq, merge(smq, whq)))))) %>% 
   replace_with_na(replace = list(birth_country = c(77, 99), marital_status = c(77, 99), overweight = c(7, 9),
                                  cancer_malignancy = c(7, 9), cancer_code1 = 99, age_breast_cancer = 99999,
@@ -132,18 +131,19 @@ nhanes_model =
   select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, alcohol, age_first_birth, 
          income, strata, psu, weight)
 
+```
+
+## Dataset exploration
+
+```{r data_exploration}
+
 skimr::skim(nhanes_model)
-
-
-nhanes_model %>% 
-  filter(breast_cancer == 1) %>% 
-  View()
 
 ```
 
 ## Survey Data Design
 
-```{r}
+```{r survey_design}
 
 # Make Survey Design
 design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~weight, nest = TRUE)
@@ -155,7 +155,7 @@ design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~
 
 ## Test logistic and survey logistic models
 
-```{r test_logistic}
+```{r test_logistic, warning = FALSE}
 
 # proposed model 1, smoking as main effectr
 model1 = svyglm(breast_cancer ~ age + race + smoke_100, family = "binomial", design = design)
@@ -173,9 +173,12 @@ tibble(
   AIC = c(summary(model1)$aic, summary(model2)$aic, summary(model3)$aic)) %>% 
   knitr::kable(digit = 3)
 
+# comparison between model 1 and model 3
 anova(model1, model3, method = "Wald")
 
 ```
+
+## 
 
 ```{r}
 
