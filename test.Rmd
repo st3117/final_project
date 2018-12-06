@@ -180,6 +180,8 @@ nhanes_model %>%
     x = "Age at Breast Cancer"
     )
 
+svyhist(~nhanes_model$age_breast_cancer, breaks = , design, main = "Distribution of Age at Breast Cancer")
+
 
 
 nhanes %>% 
