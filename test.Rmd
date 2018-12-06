@@ -122,6 +122,8 @@ nhanes_model =
   filter(gender == 2) %>% 
   select(id, year, age, race, breast_cancer, overweight, smoke_100, age_breast_cancer, strata, psu, weight)
 
+skimr::skim(nhanes_model)
+
 ```
 
 ## Survey Data Design
@@ -137,22 +139,24 @@ design = svydesign(id = ~psu, strata = ~strata, data = test_df, weights = ~weigh
 
 ```{r}
 
-
 svymean(~nhanes_model$age_breast_cancer, design = design, na.rm = TRUE)
 mean(nhanes_model$age_breast_cancer, na.rm = TRUE)
 
 test_df %>% filter(breast_cancer == 1) %>% View()
 levels(test_df$smoke_100)
+
 ```
 
 ## Test logistic and survey logistic models
 
 ```{r test_logistic}
 
+
+
 model1 = glm(formula = breast_cancer ~ age + race + overweight + smoke_100, family = "binomial", data = test_df)
 broom::tidy(model1)
 
-skimr::skim(test_df)
+
 
 
 
