@@ -37,7 +37,7 @@ Are there Disparities in obesity and risk of breast cancer across racial/ethnic 
 We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
 
 **Scraping Method**
-
+We cleaned our data from NHANES website from year 2011-2016, first we imported several questionnaire data and created data combination function. Then we chose and clean variables from each dataset, replaced the missing value and selected the interest predictors and exposures.
 
 
 
