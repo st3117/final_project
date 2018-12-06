@@ -5,3 +5,8 @@ date: "December 6, 2018"
 output: html_document
 ---
 
+The video gives a brief introduction of our project. We will talk about why we focus on this topic, the statistic methods and some simple results of our analysis. If you are interested in our topic you can view our complete project on Github.
+
+<video width="640" height="480" controls>
+  <source src="./website_files/test.mp4" type="video/mp4">
+</video>
