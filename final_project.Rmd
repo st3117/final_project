@@ -26,6 +26,7 @@ Breast cancer is the most commonly diagnosed cancer among American women. It is 
 
 ###Related work
 
+Instruction from CDC website indicates being overweight or obese as a risk factor that could be changed, which is the main effect of our study. We also find potential factors if alcohol and forms of hormone replacement therapy (those that include both estrogen and progesterone) from the website.
 
 ###Initial Questions:
 
