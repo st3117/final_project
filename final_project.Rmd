@@ -26,6 +26,7 @@ Breast cancer is the most commonly diagnosed cancer among American women. It is 
 
 ###Related work
 
+Instruction from CDC website indicates being overweight or obese as a risk factor that could be changed, which is the main effect of our study. We also find potential factors if alcohol and forms of hormone replacement therapy (those that include both estrogen and progesterone) from the website.
 
 ###Initial Questions:
 
@@ -39,21 +40,19 @@ We are going to use the Demographics, Examination Data and Dietary Data from NHA
 **Scraping Method**
 We cleaned our data from NHANES website from year 2011-2016, first we imported several questionnaire data and created data combination function. Then we chose and clean variables from each dataset, replaced the missing value and selected the interest predictors and exposures.
 
+**Cleaning**
 
 
 
 
 
-* Establish a model representing the relationship between breast cancer and interested predictors race, age, weight, overweight.
-** Visualization 
 
 
 
 ### Intended final products
 We plan to present our project using the format of website and narrated screencast. In addition, we will create graphs, charts and/or Infographic and post them on our website. 
 
-### Anticipated data sources
-We are going to use the Demographics, Examination Data and Dietary Data from NHANES 2011-2016 datasets. NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. https://wwwn.cdc.gov/nchs/nhanes/Default.aspx
+
 
 ### Planned analyses / visualizations / coding challenges
 * Planned analyses
