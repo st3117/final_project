@@ -15,3 +15,5 @@ The key predictor of interest was established using the question on “have you 
 
 **Source**
 We used the Demographics and Questionnaire data files from the NHANES 2011-2016 datasets (https://wwwn.cdc.gov/nchs/nhanes/Default.aspx). NHANES is a nationally representative, multi-stage complex survey designed to assess the health and nutritional status of the non-institutionalized, civilian US population. 
+
+For more information about this project, click this [link](https://github.com/st3117/final_project.github.io/blob/master/final_project.md) to access our final project github repository. 
