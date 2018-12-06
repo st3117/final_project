@@ -396,10 +396,11 @@ nhanes_model =
 <p>Based on the tutorial for National Health and Nutrition Examination Survey, we should select the weight of the smallest analysis subpopulation to produce estimates appropriately adjusted for survey non-response. Each NHANES survey cycle is divided into five sections labeled by collection method: Demographics, Dietary, Examination, Laboratory, and Questionnaire. This study only used variables from Demographics and Questionnaire (Weight History, Medical Conditions data files).</p>
 <pre class="r"><code># Make Survey Design
 design = svydesign(id = ~psu, strata = ~strata, data = nhanes_model, weights = ~weight, nest = TRUE)</code></pre>
-<p>Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data. ### Exploratory analysis: Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted a Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead.</p>
+<p>Since the Demographics and Questionnaire data were both collected as part of the household interview, the sample weight for this study should be WTINT2YR, which is the full sample 2-year interview weight. The next step is to construct weights for combined NHANES survey cycles. For a 6-year data from 2011 to 2016, a weight should be constructed as ⅓ *WTINT2YR. We renamed variable WTINT2YR as ‘weight’ and divided ‘weight’ by 3 to represent the weight from 2011-2016 only using the household interview data.</p>
 </div>
-<div id="discussion-and-implication" class="section level2">
-<h2>Discussion and Implication:</h2>
+<div id="exploratory-analysis" class="section level3">
+<h3>Exploratory analysis:</h3>
+<p>Based on the literature review, we proposed three models using ‘svyglm’ and compared the AICs from these three models. The first model contains age, race and smoking as predictors; the second model includes only race and race; the third model contains age, race, smoking, overweight, alcohol, age at the first birth, and income. We found that the model 3 has a significant smaller AIC value (AIC = 833.398) compared to model 1 (AIC = 1850.594) and model 2 (AIC = 1853.784). Then we conducted a Wald hypothesis test comparing model 1 and model 3 and found p value is 0.39167, which suggested that the proposed model is similar to the full model. Based on the AIC values and the Wald test, we should use the proposed model instead.</p>
 <pre class="r"><code># proposed model 1, smoking as main effect
 model1 = svyglm(breast_cancer ~ age + race + smoke_100, family = &quot;binomial&quot;, design = design)
 
@@ -577,11 +578,9 @@ svyboxplot(age_breast_cancer ~ year, design, xlab = &quot;Interview Year&quot;, 
 <div id="discussion" class="section level2">
 <h2>Discussion</h2>
 <ul>
-<li>Since we are using NHANES data, which is normally analyzed using SAS, we encountered a lot of difficulties applying the survey design.</li>
+<li>Since we are using NHANES data, which is normally analyzed using SAS, we encountered some difficulties while applying the survey design function.</li>
 <li>Some of the variables we want, for example, family history of breast cancer, do not exist in the dataset. Also, the definitions and question regarding some variables were not as clear or as what we expected.</li>
-<li>We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on “svyplot”.</li>
-<li>In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.</li>
-<li>Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.</li>
+<li>We’re not able to use ggplot and plotly on our dataset due to the fact that it is a survey data with cluster and weighting for each observations and different datasets. We have to rely on “svyplot”. In addition, our outcome and most of our predictors are categorical, which makes it hard for us to make informative plots.Despite of the challenges and limitations above, our results show that the smoking is a significant predictor for breast cancer across the years. The odds of getting breast cancer among women who had smoked is almost 1.5 times the odds comparing to the ones who had not smoked controlling for age and race.</li>
 </ul>
 </div>
 <div id="references" class="section level2">
